@@ -1,10 +1,14 @@
 package Appliction.LogInState;
 
 import Appliction.Application;
+import Appliction.view.GameFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+
 public class LoginPAnnel {
-    protected JPanel gamePanel;
+    private JPanel mainpanel;
+    protected JPanel loginPanel;
     private JPanel background;
     private JButton StartGame;
     private JButton records;
@@ -16,11 +20,20 @@ public class LoginPAnnel {
     private final int Width = 450;
 
 
-    public LoginPAnnel(JPanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public LoginPAnnel(JPanel MainPanel) {
+        mainpanel = MainPanel;
+        loginPanel = new JPanel();
+        loginPanel.setBounds(0, 0, 600, 800);
+        loginPanel.setVisible(true);
+        loginPanel.setFocusable(true);
+        loginPanel.requestFocus();
+        loginPanel.requestFocusInWindow();
+        loginPanel.setLayout(null);
+        loginPanel.setOpaque(false);
         this.background = Appliction.LogInState.background.getBackgrand();
         creatLogin();
-        gamePanel.repaint();
+        mainpanel.add(loginPanel);
+        loginPanel.repaint();
     }
 
     public JPanel getBackground() {
@@ -38,7 +51,7 @@ public class LoginPAnnel {
                 Application.gameFrame.dispose();
             }
         });
-        gamePanel.add(Exit);
+        loginPanel.add(Exit);
     }
 
     private void addSetting() {
@@ -48,10 +61,14 @@ public class LoginPAnnel {
         setting.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Setting");
+                GameFrame.getGameFrame().newStage();
+                new Appliction.LogInState.Setting.setting(GameFrame.getGameFrame().getMainPanel());
+                GameFrame.getGameFrame().addBackGrand();
+                GameFrame.getGameFrame().repaint();
             }
         });
-        gamePanel.add(setting);
+        loginPanel.add(setting);
+
     }
 
     private void addHistory() {
@@ -64,7 +81,7 @@ public class LoginPAnnel {
                 System.out.println("History");
             }
         });
-        gamePanel.add(History);
+        loginPanel.add(History);
     }
 
     private void addRecords() {
@@ -82,7 +99,7 @@ public class LoginPAnnel {
                 System.out.println("record");
             }
         });
-        gamePanel.add(records);
+        loginPanel.add(records);
     }
 
     private void addGame() {
@@ -96,7 +113,7 @@ public class LoginPAnnel {
                 System.out.println("game");
             }
         });
-        gamePanel.add(StartGame);
+        loginPanel.add(StartGame);
     }
 
     private void creatLogin() {

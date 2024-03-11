@@ -8,16 +8,24 @@ import java.awt.*;
 
 public class GameFrame extends JFrame {
     public static int MAXHEIGHT = 800;
-
+    private static GameFrame gameFrame;
     public static int MAXWIDTH = 600;
 
-    private JPanel gamePanel;
     private JPanel panel;
-
+    private JPanel mainPanel;
     private background background;
-    private LoginPAnnel loginPAnnel;
 
     public GameFrame() {
+        gameFrame = this;
+        CreatFrame();
+        CreatPanel();
+        CreatMainPanel();
+        CreatLoginPanel();
+        addBackGrand();
+        repaint();
+    }
+
+    public void CreatFrame() {
         setTitle("ajor Sheckan");
         setSize(new Dimension(MAXWIDTH, MAXHEIGHT));
         setVisible(true);
@@ -26,28 +34,74 @@ public class GameFrame extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
-        panel = new JPanel();
+    }
+
+    public void CreatPanel() {
         panel = new JPanel();
         panel.setBounds(0, 0, 600, 800);
-        panel.setVisible(true);
         panel.setFocusable(true);
         panel.requestFocus();
         panel.requestFocusInWindow();
         panel.setLayout(null);
         setContentPane(panel);
-        background = new background();
-        background.setLayout(null);
-        panel.add(background);
-        gamePanel = new JPanel();
-        gamePanel.setBounds(0, 0, 600, 800);
-        gamePanel.setVisible(true);
-        gamePanel.setFocusable(true);
-        gamePanel.requestFocus();
-        gamePanel.requestFocusInWindow();
-        gamePanel.setLayout(null);
-        gamePanel.setOpaque(false);
-        loginPAnnel = new LoginPAnnel(gamePanel);
-        panel.add(gamePanel);
+    }
+
+    public void CreatMainPanel() {
+        mainPanel = new JPanel();
+        mainPanel.setBounds(0, 0, 600, 800);
+        mainPanel.setFocusable(true);
+        mainPanel.setOpaque(false);
+        mainPanel.requestFocus();
+        mainPanel.requestFocusInWindow();
+        mainPanel.setLayout(null);
+        panel.add(mainPanel);
+    }
+
+    public void CreatLoginPanel() {
+        new LoginPAnnel(mainPanel);
+    }
+    public void addBackGrand() {
+        panel.add(Appliction.LogInState.background.getBackgrand());
+    }
+    public static GameFrame getGameFrame() {
+        if (gameFrame == null) {
+            gameFrame = new GameFrame();
+        }
+        return gameFrame;
+    }
+    public void newStage(){
+        CreatPanel();
+        CreatMainPanel();
         repaint();
+    }
+    public static int getMAXHEIGHT() {
+        return MAXHEIGHT;
+    }
+    public static void setMAXHEIGHT(int MAXHEIGHT) {
+        GameFrame.MAXHEIGHT = MAXHEIGHT;
+    }
+    public static void setGameFrame(GameFrame gameFrame) {
+        GameFrame.gameFrame = gameFrame;
+    }
+    public static int getMAXWIDTH() {
+        return MAXWIDTH;
+    }
+    public static void setMAXWIDTH(int MAXWIDTH) {
+        GameFrame.MAXWIDTH = MAXWIDTH;
+    }
+    public JPanel getPanel() {
+        return panel;
+    }
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+    public void setBackground(Appliction.LogInState.background background) {
+        this.background = background;
     }
 }

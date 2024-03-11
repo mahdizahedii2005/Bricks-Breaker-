@@ -20,9 +20,8 @@ public class background extends JPanel {
         }
         this.setBounds(0, 0, 600, 800);
     }
-
+    @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, 600, 800, null);
