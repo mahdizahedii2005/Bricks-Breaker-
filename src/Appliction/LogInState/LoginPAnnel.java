@@ -2,6 +2,7 @@ package Appliction.LogInState;
 
 import Appliction.Application;
 import Appliction.view.GameFrame;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,7 @@ public class LoginPAnnel {
     }
 
     private void addExit() {
-        Exit = new JButton("Exit");
+        Exit = new JButton(new ImageIcon("Pic\\EXET.png"));
         Exit.setBounds(startButton, startButton * 9, Width, Height);
         Exit.setVisible(true);
         Exit.setOpaque(true);
@@ -55,7 +56,7 @@ public class LoginPAnnel {
     }
 
     private void addSetting() {
-        setting = new JButton("Setting");
+        setting = new JButton(new ImageIcon("Pic\\sETINGB.png"));
         setting.setBounds(startButton, startButton * 7, Width, Height);
         setting.setVisible(true);
         setting.addActionListener(new AbstractAction() {
@@ -72,7 +73,7 @@ public class LoginPAnnel {
     }
 
     private void addHistory() {
-        History = new JButton("History");
+        History = new JButton(new ImageIcon("Pic\\history.png"));
         History.setBounds(startButton, startButton * 5, Width, Height);
         History.setVisible(true);
         History.addActionListener(new AbstractAction() {
@@ -85,7 +86,7 @@ public class LoginPAnnel {
     }
 
     private void addRecords() {
-        records = new JButton("Record");
+        records = new JButton(new ImageIcon("Pic\\records.png"));
         records.setBounds(startButton, startButton * 3, Width, Height);
         records.setVisible(true);
         records.setFocusable(true);
@@ -103,8 +104,7 @@ public class LoginPAnnel {
     }
 
     private void addGame() {
-
-        StartGame = new JButton("Game");
+        StartGame = new JButton(new ImageIcon("Pic\\game.png"));
         StartGame.setBounds(startButton, startButton, Width, Height);
         StartGame.setVisible(true);
         StartGame.addActionListener(new AbstractAction() {

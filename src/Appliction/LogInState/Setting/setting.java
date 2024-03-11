@@ -4,6 +4,8 @@ import Appliction.LogInState.LoginPAnnel;
 import Appliction.view.GameFrame;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 
 public class setting {
@@ -36,6 +38,8 @@ public class setting {
     private static String CurrentActivePath = WActivePath;
     private static String CurrentInActivePath = RInActivePath;
 
+    private static int volume=40;
+
     public setting(JPanel mainPanel) {
         CreatSettingPanel();
         creatSettingPanelCom();
@@ -65,15 +69,21 @@ public class setting {
     }
 
     private void addSoundController() {
-        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, 40);
+        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, volume);
         soundController.setBounds(basePlace, (basePlace * 3) - 150, width, potoSize);
         soundController.setVisible(true);
         soundController.setOpaque(true);
         soundController.setFocusable(true);
         soundController.requestFocus();
         soundController.requestFocusInWindow();
+        soundController.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                volume = soundController.getValue();
+            }
+        });
         settingPanel.add(soundController);
-        soundPhoto = new JLabel(new ImageIcon("D:\\Desktop\\kandid photo\\login]\\images.png"));
+        soundPhoto = new JLabel(new ImageIcon("Pic\\images.png"));
         soundPhoto.setBounds((basePlace - potoSize) / 2, (basePlace * 3) - 150, potoSize, potoSize);
         soundPhoto.setVisible(true);
         soundPhoto.setOpaque(true);
