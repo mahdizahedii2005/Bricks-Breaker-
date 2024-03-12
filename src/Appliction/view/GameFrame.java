@@ -23,6 +23,12 @@ public class GameFrame extends JFrame {
         CreatLoginPanel();
         addBackGrand();
         repaint();
+        JLabel mamd = new JLabel(new ImageIcon("D:\\Desktop\\kandid photo\\ball\\headsherekkk.png"));
+        mamd.setBounds(0,0,25,25);
+        mamd.setVisible(true);
+        mamd.setOpaque(true);
+        mainPanel.add(mamd);
+        this.repaint();
     }
 
     public void CreatFrame() {
