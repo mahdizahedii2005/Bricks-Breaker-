@@ -110,7 +110,10 @@ public class LoginPAnnel {
         StartGame.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("game");
+                GameFrame.getGameFrame().newStage();
+                new Appliction.game.readyState(GameFrame.getGameFrame().getMainPanel());
+                GameFrame.getGameFrame().addBackGrand();
+                GameFrame.getGameFrame().repaint();
             }
         });
         loginPanel.add(StartGame);
