@@ -3,7 +3,6 @@ import Appliction.Application;
 public class Main {
     public static void main(String[] args) {
         new Application().run();
-
 //        try {
 //            InputStream in = new FileInputStream(new File("Pic\\song\\warning.wav"));
 //            AudioStream as = new AudioStream(in);

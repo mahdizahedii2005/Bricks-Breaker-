@@ -1,5 +1,6 @@
 package Appliction.game;
 
+import Appliction.game.ajorShekanGame.view.GameState;
 import Appliction.view.GameFrame;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 public class readyState {
     private JButton back;
     private JButton letRoll;
-    private String personName = "";
+    private String personName = "", level = "ez", ballPath = BlueBall;
     private JTextField nameFiled;
     private JLabel EnterName;
     private JButton sherek;
@@ -45,6 +46,7 @@ public class readyState {
     public static final String brownBall = "Pic\\ball\\botonrojooscuro-th.png";
     public static final String BlueBall = "Pic\\ball\\blue.png";
 
+
     public readyState(JPanel mainPanel) {
         CreatReadyStatePanel();
         CreatReadyState();
@@ -75,9 +77,10 @@ public class readyState {
         LetsRoll();
         CreatBack();
     }
-    private void CreatBack(){
+
+    private void CreatBack() {
         back = new JButton(new ImageIcon("Pic\\backk.png"));
-        CreatJbutton(back,0,0,40,40);
+        CreatJbutton(back, 0, 0, 40, 40);
         back.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,13 +108,19 @@ public class readyState {
         readyState.add(nameFiled);
     }
 
-    private void LetsRoll(){
+    private void LetsRoll() {
         letRoll = new JButton(new ImageIcon("Pic\\letsroll.png"));
-        CreatJbutton(letRoll,175,600,258,40);
+        CreatJbutton(letRoll, 175, 600, 258, 40);
         letRoll.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (!personName.isEmpty()) {
+                    GameFrame.getGameFrame().newStage();
+//                    new Appliction.game.ajorShekanGame.view.gameFrame(level, ballPath, personName);
+                    GameFrame.getGameFrame().add(new GameState());
+                    GameFrame.getGameFrame().addBackGrand();
+                    GameFrame.getGameFrame().repaint();
+                }
             }
         });
         readyState.add(letRoll);
@@ -138,6 +147,7 @@ public class readyState {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentH.equals(WH)) {
+                    level = "hard";
                     CurrentH = RH;
                     CurrentN = WN;
                     CurrentE = WE;
@@ -161,6 +171,7 @@ public class readyState {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentN.equals(WN)) {
+                    level = "normal";
                     CurrentH = WH;
                     CurrentN = GN;
                     CurrentE = WE;
@@ -171,7 +182,6 @@ public class readyState {
                     Createz();
                     CreatNormal();
                     GameFrame.getGameFrame().repaint();
-
                 }
             }
         });
@@ -185,6 +195,7 @@ public class readyState {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentE.equals(WE)) {
+                    level = "ez";
                     CurrentH = WH;
                     CurrentN = WN;
                     CurrentE = BE;
@@ -220,7 +231,7 @@ public class readyState {
         sherek.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ballPath = sherekBall;
             }
         });
         readyState.add(sherek);
@@ -229,6 +240,12 @@ public class readyState {
     private void CreatSceleton1() {
         Sceleton1 = new JButton(new ImageIcon(Sckeleton1));
         CreatJbutton(Sceleton1, 172, 250, 35, 35);
+        Sceleton1.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = Sckeleton1;
+            }
+        });
         readyState.add(Sceleton1);
     }
 
@@ -236,36 +253,72 @@ public class readyState {
     private void CreatRed() {
         red = new JButton(new ImageIcon(redBall));
         CreatJbutton(red, 172, 355, 35, 35);
+        red.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = redBall;
+            }
+        });
         readyState.add(red);
     }
 
     private void CreatSceleton2() {
         Sceleton2 = new JButton(new ImageIcon(Sckeleton2));
         CreatJbutton(Sceleton2, 400, 250, 35, 35);
+        Sceleton2.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = Sckeleton2;
+            }
+        });
         readyState.add(Sceleton2);
     }
 
     private void CreatBrown() {
         Brown = new JButton(new ImageIcon(brownBall));
         CreatJbutton(Brown, 287, 250, 35, 35);
+        Brown.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = brownBall;
+            }
+        });
         readyState.add(Brown);
     }
 
     private void CreatBlue() {
         blue = new JButton(new ImageIcon(BlueBall));
         CreatJbutton(blue, 287, 355, 35, 35);
+        blue.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = BlueBall;
+            }
+        });
         readyState.add(blue);
     }
 
     private void CreatLigthBlue() {
         lightBlue = new JButton(new ImageIcon(lightBlueBall));
         CreatJbutton(lightBlue, 475, 300, 35, 35);
+        lightBlue.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = lightBlueBall;
+            }
+        });
         readyState.add(lightBlue);
     }
 
     private void CreatGreen() {
         green = new JButton(new ImageIcon(GreenBall));
         CreatJbutton(green, 400, 355, 35, 35);
+        green.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ballPath = GreenBall;
+            }
+        });
         readyState.add(green);
     }
 }
