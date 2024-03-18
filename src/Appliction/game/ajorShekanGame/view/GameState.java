@@ -6,14 +6,16 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class GameState extends JPanel {
+    int ballBSpeed =29;
     public static boolean isGameStop = false;
     TimeHandeler timeHandeler;
-    String level, ballPath, PlayerName;
     private showTimeFrame timeShow;
     private JLabel recordShow;
     private JLabel bestRecordShow;
@@ -27,9 +29,11 @@ public class GameState extends JPanel {
     public static int BestRecord = 0;// TODO: ۱۴/۰۳/۲۰۲۴  fix best record
     private String path = "Pic\\images (1).jfif";
     private BufferedImage backgroundImage;
+    private String PlayerName;
 
-    public GameState() {
+    public GameState(String level, String Path, String PlayerName) {
         super();
+        this.PlayerName = PlayerName;
         setBounds(0, 0, 600, 800);
         setOpaque(false);
         setLayout(null);
@@ -41,8 +45,43 @@ public class GameState extends JPanel {
         }
         timeHandeler = new TimeHandeler();
         add(new showTimeFrame(timeHandeler, this));
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(level, Path);
         add(gamePanel);
+        gamePanel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("hi");
+                int xvel ,yval;
+                Double z =(double)(e.getX()-GamePanel.XFIRSTPLACOFBALL)/(e.getY()-GamePanel.YFIRSTPLACOFBALL);
+                yval = (int)Math.sqrt(ballBSpeed*ballBSpeed/(1+(z*z)));
+                xvel = (int)Math.sqrt((ballBSpeed*ballBSpeed)-(yval*yval));
+                if (e.getX()<GamePanel.XFIRSTPLACOFBALL){
+                    xvel = -1*xvel;
+                }
+                gamePanel.ballArrayList.get(0).setxVal(1*xvel);
+                gamePanel.ballArrayList.get(0).setyVal(-1*yval);
+                gamePanel.gameLoop.isBallTrow=true;
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         CreatPusee();
         CreatExit();
         CreatJLabel(record, 1, 0, 200, 26, "Pic\\game pic\\yourRecord.png");
@@ -94,7 +133,7 @@ public class GameState extends JPanel {
                     timeHandeler.PuseTheGame();
                 }
                 isGameStop = !isGameStop;
-                GamePanel.getGamePanel().gameLoop.IsGamePus=isGameStop;
+                GamePanel.getGamePanel().gameLoop.IsGamePus = isGameStop;
                 revalidate();
                 repaint();
             }

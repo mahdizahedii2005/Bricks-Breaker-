@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 public class readyState {
     private JButton back;
     private JButton letRoll;
-    private String personName = "", level = "ez", ballPath = BlueBall;
+    private String personName = "", level = "ez", ballPath = "Pic\\ball\\images (1)\\images (1).png";
     private JTextField nameFiled;
     private JLabel EnterName;
     private JButton sherek;
@@ -117,7 +117,7 @@ public class readyState {
                 if (!personName.isEmpty()) {
                     GameFrame.getGameFrame().newStage();
 //                    new Appliction.game.ajorShekanGame.view.gameFrame(level, ballPath, personName);
-                    GameFrame.getGameFrame().add(new GameState());
+                    GameFrame.getGameFrame().add(new GameState(level,ballPath,personName));
                     GameFrame.getGameFrame().addBackGrand();
                     GameFrame.getGameFrame().repaint();
                 }
@@ -231,7 +231,7 @@ public class readyState {
         sherek.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = sherekBall;
+                ballPath = "Pic\\ball\\sherek 5\\sherek 5.png";
             }
         });
         readyState.add(sherek);
@@ -243,7 +243,7 @@ public class readyState {
         Sceleton1.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = Sckeleton1;
+                ballPath = "Pic\\ball\\Skelleton2\\Skelleton2.png";
             }
         });
         readyState.add(Sceleton1);
@@ -256,7 +256,7 @@ public class readyState {
         red.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = redBall;
+                ballPath = "Pic\\ball\\red-circle-icon-16\\red-circle-icon-16.png";
             }
         });
         readyState.add(red);
@@ -268,7 +268,7 @@ public class readyState {
         Sceleton2.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = Sckeleton2;
+                ballPath ="Pic\\ball\\images (1)\\images (1).png";
             }
         });
         readyState.add(Sceleton2);
@@ -280,7 +280,7 @@ public class readyState {
         Brown.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = brownBall;
+                ballPath = "Pic\\ball\\botonrojooscuro-th\\b.png";
             }
         });
         readyState.add(Brown);
@@ -292,7 +292,7 @@ public class readyState {
         blue.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = BlueBall;
+                ballPath = "Pic\\ball\\blue\\b.png";
             }
         });
         readyState.add(blue);
@@ -304,7 +304,7 @@ public class readyState {
         lightBlue.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = lightBlueBall;
+                ballPath = "Pic\\ball\\blue-circle-icon-18\\b.png";
             }
         });
         readyState.add(lightBlue);
@@ -316,7 +316,7 @@ public class readyState {
         green.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath = GreenBall;
+                ballPath = "Pic\\ball\\green\\b.png";
             }
         });
         readyState.add(green);

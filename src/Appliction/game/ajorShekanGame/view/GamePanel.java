@@ -8,13 +8,19 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    public static final int XFIRSTPLACOFBALL = 250;
+    public static final int YFIRSTPLACOFBALL = 475;
+    public String level, ballPAth;
     private static GamePanel gamePanel;
     public ArrayList<Brick> firstBrick = new ArrayList<>();
     public ArrayList<Brick> brickArrayList = new ArrayList<>();
     public ArrayList<Ball> ballArrayList = new ArrayList<>();
-public gameLoop gameLoop;
-    public GamePanel() {
+    public gameLoop gameLoop;
+
+    public GamePanel(String level, String BallPath) {
         super();
+        this.level = level;
+        this.ballPAth = BallPath;
         setBounds(50, 190, 500, 500);
         setOpaque(false);
         setLayout(null);
@@ -22,6 +28,12 @@ public gameLoop gameLoop;
         requestFocus();
         requestFocusInWindow();
         gamePanel = this;
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
+
         gameLoop = new gameLoop();
         gameLoop.start();
     }
@@ -29,7 +41,6 @@ public gameLoop gameLoop;
     public ArrayList<Brick> getFirstBrick() {
         return firstBrick;
     }
-
 
     public ArrayList<Brick> getBrickArrayList() {
         return brickArrayList;
@@ -41,7 +52,7 @@ public gameLoop gameLoop;
 
     public static GamePanel getGamePanel() {
         if (gamePanel == null) {
-            gamePanel = new GamePanel();
+            gamePanel = new GamePanel(gamePanel.level, gamePanel.ballPAth);
         }
         return gamePanel;
     }
