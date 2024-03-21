@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameState extends JPanel {
-    int ballBSpeed =29;
+    int ballBSpeed = 10;
     public static boolean isGameStop = false;
     TimeHandeler timeHandeler;
     private showTimeFrame timeShow;
@@ -50,18 +50,24 @@ public class GameState extends JPanel {
         gamePanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("hi");
-                int xvel ,yval;
-                Double z =(double)(e.getX()-GamePanel.XFIRSTPLACOFBALL)/(e.getY()-GamePanel.YFIRSTPLACOFBALL);
-                yval = (int)Math.sqrt(ballBSpeed*ballBSpeed/(1+(z*z)));
-                xvel = (int)Math.sqrt((ballBSpeed*ballBSpeed)-(yval*yval));
-                if (e.getX()<GamePanel.XFIRSTPLACOFBALL){
-                    xvel = -1*xvel;
+                if (!gamePanel.gameLoop.isBallTrow && !isGameStop&&e.getY()<GamePanel.YFIRSTPLACOFBALL-5) {
+                    float xvel, yval;
+                    float z = (float) (e.getX()+12 - gamePanel.ballArrayList.get(0).getX()) / (e.getY()+12 - gamePanel.ballArrayList.get(0).getY());
+                    yval =  (float) (Math.sqrt(ballBSpeed * ballBSpeed / (1 + (z * z))));
+                    xvel =  (float)(Math.sqrt((ballBSpeed * ballBSpeed) - (yval * yval)));
+                    if (e.getX()+12 < gamePanel.ballArrayList.get(0).getX()) {
+                        xvel = -1 * xvel;
+                    }
+                    gamePanel.ballArrayList.get(0).setxVal(xvel);
+                    gamePanel.ballArrayList.get(0).setyVal(-1 * yval);
+                    for (int j = 0; j < GamePanel.getGamePanel().ballArrayList.size(); j++) {
+                        GamePanel.getGamePanel().ballArrayList.get(j).IsMoving = true;
+                    }
+                    gamePanel.gameLoop.isBallTrow = true;
+
                 }
-                gamePanel.ballArrayList.get(0).setxVal(1*xvel);
-                gamePanel.ballArrayList.get(0).setyVal(-1*yval);
-                gamePanel.gameLoop.isBallTrow=true;
             }
+
             @Override
             public void mousePressed(MouseEvent e) {
 
@@ -113,6 +119,7 @@ public class GameState extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // TODO: ۱۴/۰۳/۲۰۲۴ Finish the game
                 GameFrame.getGameFrame().newStage();
+                GamePanel.getGamePanel().gameLoop.stop();
                 new Appliction.LogInState.LoginPAnnel(GameFrame.getGameFrame().getMainPanel());
                 GameFrame.getGameFrame().addBackGrand();
                 GameFrame.getGameFrame().repaint();

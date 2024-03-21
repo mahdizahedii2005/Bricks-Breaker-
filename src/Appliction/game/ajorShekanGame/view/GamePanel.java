@@ -8,14 +8,19 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    public static int StartX = -1;
+    public static int startY = 484;
     public static final int XFIRSTPLACOFBALL = 250;
-    public static final int YFIRSTPLACOFBALL = 475;
+    public static final int YFIRSTPLACOFBALL = 488;
     public String level, ballPAth;
     private static GamePanel gamePanel;
     public ArrayList<Brick> firstBrick = new ArrayList<>();
     public ArrayList<Brick> brickArrayList = new ArrayList<>();
     public ArrayList<Ball> ballArrayList = new ArrayList<>();
     public gameLoop gameLoop;
+    public static final int MaxWidth = 500;
+    public static final int MaxHeight = 500;
+    public static final int BallLength=15;
 
     public GamePanel(String level, String BallPath) {
         super();
@@ -28,12 +33,11 @@ public class GamePanel extends JPanel {
         requestFocus();
         requestFocusInWindow();
         gamePanel = this;
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, 25, 25, ballPAth);
-
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
+        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
         gameLoop = new gameLoop();
         gameLoop.start();
     }

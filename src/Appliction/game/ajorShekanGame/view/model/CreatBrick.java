@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CreatBrick {
-    private static ArrayList<String> ColorBrick = new ArrayList<>();
+    public static ArrayList<String> ColorBrick = new ArrayList<>();
     static {
         ColorBrick.add("Pic\\Brick\\Green.png");
         ColorBrick.add("Pic\\Brick\\Black.png");
@@ -50,7 +50,7 @@ public class CreatBrick {
         String which = ChooseWhichStack();
         for (int i = 0; i < numSart; i++) {
             if (which.charAt(i) == '1') {
-                Brick brick = new Brick((i * 500 / numSart) , -500 / numSart, 500 / numSart, 500 / numSart, valueOfBrick,ColorBrick.get(random.nextInt(ColorBrick.size())) );
+                Brick brick = new Brick((i * 500 / numSart) , -500 / numSart+5, 500 / numSart, 500 / numSart, valueOfBrick,ColorBrick.get(random.nextInt(ColorBrick.size())) );
                 gamePanel.add(brick);
                 gamePanel.firstBrick.add(brick);
                 gamePanel.brickArrayList.add(brick);

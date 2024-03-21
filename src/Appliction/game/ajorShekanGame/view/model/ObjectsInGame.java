@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 public class ObjectsInGame extends JLabel {
-    private int x;
-    private int y;
+    protected float x;
+    protected float y;
     private int width;
     private int height;
 
@@ -14,8 +14,8 @@ public class ObjectsInGame extends JLabel {
     public ObjectsInGame(int x, int y, int width, int height) {
         this.width = width;
         this.height = height;
-        this.x = x;
-        this.y = y;
+        this.x = (float) x;
+        this.y = (float) y;
         setVisible(true);
         setOpaque(true);
         setBounds(x, y, width, height);
@@ -23,20 +23,28 @@ public class ObjectsInGame extends JLabel {
 
     @Override
     public int getX() {
-        return x;
+        return Math.round(x);
     }
 
     public void setX(int x) {
-        this.x = x;
+        this.x = (float)x;
     }
 
     @Override
     public int getY() {
-        return y;
+        return Math.round(y);
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getCenterX() {
+        return getX() + (getWidth() / 2);
+    }
+
+    public int getCenterY() {
+        return getY() + (getHeight() / 2);
     }
 
     @Override
