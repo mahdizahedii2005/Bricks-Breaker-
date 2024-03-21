@@ -239,16 +239,16 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private boolean OnLine(Brick br) {
-        int hm1 = br.getY()+br.getHeight() + getX();
-        int h2 = br.getY() - br.getX();
-        return ISItUpTheLine(1, hm1, getCenterX(), getCenterY()) == null || ISItUpTheLine(-1, h2, getCenterX(), getCenterY()) == null;
+        int hm1 = br.getY()+br.getHeight() + br.getX() ;
+        int h2 = br.getY() - br.getX() ;
+        return ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) == null || ISItUpTheLine(1, h2, getCenterX(), getCenterY()) == null;
     }
 
 
     private boolean R(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX()-1;
-            int h2 = br.getY() - br.getX()+1;
+            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int h2 = br.getY() - br.getX();
             return ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && !ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (NullPointerException b) {
             return false;
@@ -257,8 +257,8 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private boolean L(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX()-1;
-            int h2 = br.getY() - br.getX()+1;
+            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int h2 = br.getY() - br.getX();
             return !ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (NullPointerException b) {
             return false;
@@ -268,8 +268,8 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private boolean U(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX()+1;
-            int h2 = br.getY() - br.getX()-1;
+            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int h2 = br.getY() - br.getX();
             return !ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && !ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (
                 NullPointerException b) {

@@ -50,7 +50,7 @@ public class GameState extends JPanel {
         gamePanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!gamePanel.gameLoop.isBallTrow && !isGameStop&&e.getY()<GamePanel.YFIRSTPLACOFBALL-5) {
+                if (!gamePanel.gameLoop.isBallTrow && !isGameStop&&e.getY()<GamePanel.YFIRSTPLACOFBALL-20) {
                     float xvel, yval;
                     float z = (float) (e.getX()+12 - gamePanel.ballArrayList.get(0).getX()) / (e.getY()+12 - gamePanel.ballArrayList.get(0).getY());
                     yval =  (float) (Math.sqrt(ballBSpeed * ballBSpeed / (1 + (z * z))));

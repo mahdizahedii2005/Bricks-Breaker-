@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class CreatBrick {
     public static ArrayList<String> ColorBrick = new ArrayList<>();
+
     static {
         ColorBrick.add("Pic\\Brick\\Green.png");
         ColorBrick.add("Pic\\Brick\\Black.png");
@@ -16,6 +17,7 @@ public class CreatBrick {
         ColorBrick.add("Pic\\Brick\\Red.png");
         ColorBrick.add("Pic\\Brick\\Yellow.png");
     }
+
     private int NumCreat;
     private Random random = new Random();
     private int numSart;
@@ -34,11 +36,16 @@ public class CreatBrick {
         int numOf1 = 0;
         for (int i = 0; i < numSart; i++) {
             if (NumCreat >= numOf1) {
-                int maghsod = random.nextInt(2);
-                if (maghsod == 1) {
-                    numOf1++;
+                int IthemBAshe = random.nextInt(7);
+                if (IthemBAshe != 0) {
+                    int maghsod = random.nextInt(2);
+                    if (maghsod == 1) {
+                        numOf1++;
+                    }
+                    result.append(maghsod);
+                }else {
+                    result.append("2");
                 }
-                result.append(maghsod);
             } else {
                 result.append("0");
             }
@@ -48,14 +55,31 @@ public class CreatBrick {
 
     public void BulAnSatr() {
         String which = ChooseWhichStack();
+        GamePanel.getGamePanel().firstBrick = new ArrayList<>();
         for (int i = 0; i < numSart; i++) {
             if (which.charAt(i) == '1') {
-                Brick brick = new Brick((i * 500 / numSart) , -500 / numSart+5, 500 / numSart, 500 / numSart, valueOfBrick,ColorBrick.get(random.nextInt(ColorBrick.size())) );
+                Brick brick = new Brick((i * 500 / numSart), -500 / numSart + 5, 500 / numSart, 500 / numSart, valueOfBrick, ColorBrick.get(random.nextInt(ColorBrick.size())));
                 gamePanel.add(brick);
                 gamePanel.firstBrick.add(brick);
                 gamePanel.brickArrayList.add(brick);
             }
         }
+        GamePanel.getGamePanel().gameLoop.CurrentValue++;
+    }
+
+    public void CustomCreat() {
+        int soton = GamePanel.getGamePanel().firstBrick.get(0).getY() - GamePanel.getGamePanel().firstBrick.get(0).getHeight();
+        GamePanel.getGamePanel().firstBrick = new ArrayList<>();
+        String which = ChooseWhichStack();
+        for (int i = 0; i < numSart; i++) {
+            if (which.charAt(i) == '1') {
+                Brick brick = new Brick((i * 500 / numSart), soton, 500 / numSart, 500 / numSart, valueOfBrick, ColorBrick.get(random.nextInt(ColorBrick.size())));
+                gamePanel.add(brick);
+                gamePanel.firstBrick.add(brick);
+                gamePanel.brickArrayList.add(brick);
+            }
+        }
+        GamePanel.getGamePanel().gameLoop.CurrentValue++;
     }
 
 }

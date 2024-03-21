@@ -45,8 +45,8 @@ public class Brick extends ObjectsInGame implements Gravity {
     }
 
     @Override
-    public void Gravity() {
-        setY(getY() + 10);
+    public void Gravity(int mizan) {
+        setY(getY() + mizan);
         setBounds(getX(), getY(), getWidth(), getWidth());
     }
 }

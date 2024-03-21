@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    public static int NUMBEROFBRICKINEACHSATR =10;
     public static int StartX = -1;
     public static int startY = 484;
     public static final int XFIRSTPLACOFBALL = 250;
@@ -33,10 +34,6 @@ public class GamePanel extends JPanel {
         requestFocus();
         requestFocusInWindow();
         gamePanel = this;
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
-        new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
         new Ball(XFIRSTPLACOFBALL, YFIRSTPLACOFBALL, BallLength, BallLength, ballPAth);
         gameLoop = new gameLoop();
         gameLoop.start();
