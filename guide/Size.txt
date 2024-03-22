@@ -1,0 +1,4 @@
+Level : Brick : Item
+Hard : 50 : 
+Normal : 100 :
+Easy : 125 :

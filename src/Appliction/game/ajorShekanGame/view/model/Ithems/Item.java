@@ -1,12 +1,40 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
+import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.model.Gravity;
 import Appliction.game.ajorShekanGame.view.model.ObjectsInGame;
 
-public class Item extends ObjectsInGame {
+import javax.swing.*;
+
+public abstract class Item extends ObjectsInGame implements Gravity {
     protected String PhotoPath;
 
-    public Item(int x, int y, int width, int height) {
-        super(x, y, width, height);}
+    public Item(int x, int y) {
+        super(x, y);
+    }
+    protected Item(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
+    protected void BulItem(int width , int height){
+        setWidth(width);
+        setHeight(height);
+        setBounds(getX(), getY(), getWidth(), getHeight());
+        setIcon(new ImageIcon(PhotoPath));
+        setVisible(true);
+        setOpaque(true);
+        GamePanel.getGamePanel().gravityObject.add(this);
+        GamePanel.getGamePanel().ItemArrayList.add(this);
+        GamePanel.getGamePanel().add(this);
+        GamePanel.getGamePanel().repaint();
+    }
+    protected void DoAction(){}
+
+    @Override
+    public void Gravity(int mizan) {
+        setY(getY() + mizan);
+        setBounds(getX(), getY(), getWidth(), getWidth());
+    }
+
     public String getPhotoPath() {
         return PhotoPath;
     }

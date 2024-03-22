@@ -25,6 +25,7 @@ public class Brick extends ObjectsInGame implements Gravity {
         this.value -= 1;
         setText(value.toString());
         if (value <= 0) {
+            GamePanel.getGamePanel().gravityObject.remove(this);
             GamePanel.getGamePanel().brickArrayList.remove(this);
             GamePanel.getGamePanel().remove(this);
             // TODO: ۲۰/۰۳/۲۰۲۴ Score

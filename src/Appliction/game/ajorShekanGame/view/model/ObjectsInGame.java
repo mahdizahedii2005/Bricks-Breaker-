@@ -3,13 +3,18 @@ package Appliction.game.ajorShekanGame.view.model;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public class ObjectsInGame extends JLabel {
+public abstract class ObjectsInGame extends JLabel {
     protected float x;
     protected float y;
     private int width;
     private int height;
 
     protected BufferedImage background;
+
+    public ObjectsInGame(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public ObjectsInGame(int x, int y, int width, int height) {
         this.width = width;
@@ -27,7 +32,7 @@ public class ObjectsInGame extends JLabel {
     }
 
     public void setX(int x) {
-        this.x = (float)x;
+        this.x = (float) x;
     }
 
     @Override
