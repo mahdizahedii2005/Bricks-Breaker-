@@ -21,7 +21,7 @@ public class EarthQuark extends SpeItem {
     }
 
     @Override
-    protected void DoAction() {
+    public void DoAction() {
 
     }
 

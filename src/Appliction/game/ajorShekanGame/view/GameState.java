@@ -11,8 +11,10 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class GameState extends JPanel {
+    public static boolean IS_IT_SARGIJEH = false;
     int ballBSpeed = 10;
     public static boolean isGameStop = false;
     TimeHandeler timeHandeler;
@@ -50,12 +52,21 @@ public class GameState extends JPanel {
         gamePanel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!gamePanel.gameLoop.isBallTrow && !isGameStop&&e.getY()<GamePanel.YFIRSTPLACOFBALL-20) {
-                    float xvel, yval;
-                    float z = (float) (e.getX()+12 - gamePanel.ballArrayList.get(0).getX()) / (e.getY()+12 - gamePanel.ballArrayList.get(0).getY());
-                    yval =  (float) (Math.sqrt(ballBSpeed * ballBSpeed / (1 + (z * z))));
-                    xvel =  (float)(Math.sqrt((ballBSpeed * ballBSpeed) - (yval * yval)));
-                    if (e.getX()+12 < gamePanel.ballArrayList.get(0).getX()) {
+                if (!gamePanel.gameLoop.isBallTrow && !isGameStop && e.getY() < GamePanel.YFIRSTPLACOFBALL - 20) {
+                    float xvel, yval = 6;
+                    if (!IS_IT_SARGIJEH) {
+                        float z = (float) (e.getX() + 5 - gamePanel.ballArrayList.get(0).getX()) / (e.getY() + 5 - gamePanel.ballArrayList.get(0).getY());
+                        yval = (float) (Math.sqrt(ballBSpeed * ballBSpeed / (1 + (z * z))));
+                        xvel = (float) (Math.sqrt((ballBSpeed * ballBSpeed) - (yval * yval)));
+                    } else {
+                        IS_IT_SARGIJEH = false;
+                        yval = (float) new Random().nextInt(5) + 3;
+                        xvel = (float) Math.sqrt((ballBSpeed * ballBSpeed) - (yval * yval));
+                        if (new Random().nextInt(2) == 1) {
+                            xvel = xvel * (-1);
+                        }
+                    }
+                    if (e.getX() + 5 < gamePanel.ballArrayList.get(0).getX()) {
                         xvel = -1 * xvel;
                     }
                     gamePanel.ballArrayList.get(0).setxVal(xvel);
@@ -64,7 +75,6 @@ public class GameState extends JPanel {
                         GamePanel.getGamePanel().ballArrayList.get(j).IsMoving = true;
                     }
                     gamePanel.gameLoop.isBallTrow = true;
-
                 }
             }
 
@@ -88,12 +98,22 @@ public class GameState extends JPanel {
 
             }
         });
+
         CreatPusee();
+
         CreatExit();
+
         CreatJLabel(record, 1, 0, 200, 26, "Pic\\game pic\\yourRecord.png");
+
         CreatJLabel(bestRecord, 1, 35, 200, 22, "Pic\\game pic\\Best record.png");
+
         CreatJLabel(Time, 88, 67, 111, 30, "Pic\\game pic\\Time.png");
-        GameFrame.getGameFrame().getMainPanel().add(this);
+        GameFrame.getGameFrame().
+
+                getMainPanel().
+
+                add(this);
+
     }
 
     private void CreatJButton(JButton jbutton, int x, int y, int width, int height) {
@@ -117,9 +137,9 @@ public class GameState extends JPanel {
         Exit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                GamePanel.musicPlayer.Stop();
                 // TODO: ۱۴/۰۳/۲۰۲۴ Finish the game
                 GameFrame.getGameFrame().newStage();
-                GamePanel.getGamePanel().gameLoop.stop();
                 new Appliction.LogInState.LoginPAnnel(GameFrame.getGameFrame().getMainPanel());
                 GameFrame.getGameFrame().addBackGrand();
                 GameFrame.getGameFrame().repaint();

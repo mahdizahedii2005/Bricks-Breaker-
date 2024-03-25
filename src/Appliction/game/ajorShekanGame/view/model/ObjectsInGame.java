@@ -70,7 +70,10 @@ public abstract class ObjectsInGame extends JLabel {
         this.height = height;
     }
 
-
+    @Override
+    public String toString() {
+        return ", X:" +getCenterX() + ", Y:"+getCenterY();
+    }
 }
 
 

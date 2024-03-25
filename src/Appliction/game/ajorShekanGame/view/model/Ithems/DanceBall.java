@@ -1,6 +1,8 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.Dance.brickColorChanger;
+import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.Dance.changBackGround;
 
 public class DanceBall extends SpeItem {
     public DanceBall(int x, int y) {
@@ -21,8 +23,9 @@ public class DanceBall extends SpeItem {
     }
 
     @Override
-    protected void DoAction() {
-        super.DoAction();
+    public void DoAction() {
+       new changBackGround().start();
+       new brickColorChanger().start();
     }
 
 

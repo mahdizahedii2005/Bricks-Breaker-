@@ -1,5 +1,6 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
+import Appliction.game.ajorShekanGame.view.Controler.gameLoop;
 import Appliction.game.ajorShekanGame.view.GamePanel;
 
 public class addBall extends normalItem {
@@ -18,7 +19,7 @@ public class addBall extends normalItem {
     }
 
     @Override
-    protected void DoAction() {
-
+    public void DoAction() {
+        gameLoop.NUMBER_OF_BALL_TO_IN_THIS_ROUND++;
     }
 }

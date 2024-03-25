@@ -1,9 +1,10 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.IncreaseSpeed;
 
 public class IncreaseSpeedBall extends normalItem {
-    private IncreaseSpeedBall(int x, int y) {
+    public IncreaseSpeedBall(int x, int y) {
         super(x, y);
         if (GamePanel.level.equals("hard")) {
             PhotoPath = "Pic\\Item\\Hard\\IncreaseSpeed.png";
@@ -18,9 +19,7 @@ public class IncreaseSpeedBall extends normalItem {
     }
 
     @Override
-    protected void DoAction() {
-        super.DoAction();
+    public void DoAction() {
+        new IncreaseSpeed().start();
     }
-
-
 }

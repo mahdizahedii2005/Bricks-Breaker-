@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public class background extends JPanel {
     private static background background;
-    private String path = "Pic\\black-.jpg";
+    public static String path = "Pic\\black-.jpg";
     private BufferedImage backgroundImage;
 
-    public background() {
+    public void setBackgroundImage() {
         try {
             backgroundImage = ImageIO.read(new File(path));
         } catch (IOException e) {
@@ -20,6 +20,11 @@ public class background extends JPanel {
         }
         this.setBounds(0, 0, 600, 800);
     }
+
+    public background() {
+        setBackgroundImage();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

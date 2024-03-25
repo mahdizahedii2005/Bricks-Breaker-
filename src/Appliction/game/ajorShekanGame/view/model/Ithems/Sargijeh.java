@@ -1,6 +1,7 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.GameState;
 
 public class Sargijeh extends normalItem{
     public Sargijeh(int x, int y) {
@@ -17,8 +18,8 @@ public class Sargijeh extends normalItem{
         }
     }
     @Override
-    protected void DoAction() {
-
+    public void DoAction() {
+        GameState.IS_IT_SARGIJEH=true;
     }
 
 }

@@ -1,6 +1,7 @@
 package Appliction.game.ajorShekanGame.view.model;
 
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.model.Ithems.Item;
 
 import javax.swing.*;
 
@@ -9,8 +10,10 @@ public class Ball extends ObjectsInGame implements IMoveable {
     private float xVal = 0;
     private float yVal = 0;
 
+    public static String ballphoto;
     public Ball(int x, int y, int width, int height, String Path) {
         super(x, y, width, height);
+        ballphoto = Path;
         IsMoving = false;
         setBounds(x, y, width, height);
         setIcon(new ImageIcon(Path));
@@ -25,6 +28,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
         boolean a, b;
         a = Hit();
         b = doWeHitBrick();
+        doWeHitItem();
         if (a || b) {
             return;
         }
@@ -32,6 +36,23 @@ public class Ball extends ObjectsInGame implements IMoveable {
         setY(giveMeVALPlusY());
         setBounds(getX(), getY(), getWidth(), getHeight());
         repaint();
+    }
+
+    private void doWeHitItem() {
+        for (Item item : GamePanel.getGamePanel().ItemArrayList) {
+            if (HitItemChecker(item)) {
+                item.DoAction();
+                GamePanel.getGamePanel().remove(item);
+                GamePanel.getGamePanel().ItemArrayList.remove(item);
+                GamePanel.getGamePanel().gravityObject.remove(item);
+                GamePanel.getGamePanel().repaint();
+                return;
+            }
+        }
+    }
+
+    private boolean HitItemChecker(Item item) {
+        return item.getX() - getWidth() < getX() && item.getY() - getHeight() < getY() && item.getY() + item.getHeight() > getY() && item.getX() + item.getWidth() > getX();
     }
 
     private boolean Hit() {
@@ -151,7 +172,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private boolean DoItHit(Brick br) {
-        return giveMeVALPlusX()>= br.getX() - getWidth() && giveMeVALPlusX() <= br.getX() + br.getWidth() && giveMeVALPlusY() >= br.getY() - getHeight() && giveMeVALPlusY()<= br.getHeight() + br.getY();
+        return giveMeVALPlusX() >= br.getX() - getWidth() && giveMeVALPlusX() <= br.getX() + br.getWidth() && giveMeVALPlusY() >= br.getY() - getHeight() && giveMeVALPlusY() <= br.getHeight() + br.getY();
     }
 
     //    private boolean HitChooser(Brick br) {
@@ -239,15 +260,15 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private boolean OnLine(Brick br) {
-        int hm1 = br.getY()+br.getHeight() + br.getX() ;
-        int h2 = br.getY() - br.getX() ;
+        int hm1 = br.getY() + br.getHeight() + br.getX();
+        int h2 = br.getY() - br.getX();
         return ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) == null || ISItUpTheLine(1, h2, getCenterX(), getCenterY()) == null;
     }
 
 
     private boolean R(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int hm1 = br.getY() + br.getHeight() + br.getX();
             int h2 = br.getY() - br.getX();
             return ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && !ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (NullPointerException b) {
@@ -257,7 +278,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private boolean L(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int hm1 = br.getY() + br.getHeight() + br.getX();
             int h2 = br.getY() - br.getX();
             return !ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (NullPointerException b) {
@@ -268,7 +289,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private boolean U(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int hm1 = br.getY() + br.getHeight() + br.getX();
             int h2 = br.getY() - br.getX();
             return !ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && !ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (
@@ -280,7 +301,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private boolean D(Brick br) {
         try {
-            int hm1 = br.getY() +br.getHeight()+ br.getX();
+            int hm1 = br.getY() + br.getHeight() + br.getX();
             int h2 = br.getY() - br.getX();
             return ISItUpTheLine(-1, hm1, getCenterX(), getCenterY()) && ISItUpTheLine(1, h2, getCenterX(), getCenterY());
         } catch (NullPointerException b) {
@@ -290,19 +311,18 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private void HitDownBrick(Brick br) {
         setX(giveMeVALPlusX());
-        setY(giveMeVALPlusY());
-//        setY(br.getY() + br.getHeight());
+        setY(br.getY() + br.getHeight());
         setBounds(getX(), getY(), getWidth(), getHeight());
-  //      System.out.println("Down" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
+        //      System.out.println("Down" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
         br.DicreasValue();
         repaint();
         setyVal(-1 * getyVal());
     }
 
     private void HitRightBrick(Brick br) {
-        setX(giveMeVALPlusX());
+        // setX(giveMeVALPlusX());
         setY(giveMeVALPlusY());
-//        setX(br.getX() + br.getHeight());
+        setX(br.getX() + br.getHeight());
 //        setY(getY() + getyVal());
         setBounds(getX(), getY(), getWidth(), getHeight());
         //System.out.println("right" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
@@ -312,12 +332,12 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private void HitLeftBrick(Brick br) {
-        setX(giveMeVALPlusX());
+        // setX(giveMeVALPlusX());
         setY(giveMeVALPlusY());
-//        setX(br.getX() - getWidth());
+        setX(br.getX() - getWidth());
 //        setY(getY() + getyVal());
         setBounds(getX(), getY(), getWidth(), getHeight());
-   //     System.out.println("left" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
+        //     System.out.println("left" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
         br.DicreasValue();
         repaint();
         setxVal(-1 * getxVal());
@@ -325,9 +345,9 @@ public class Ball extends ObjectsInGame implements IMoveable {
 
     private void HitUpBrick(Brick br) {
         setX(giveMeVALPlusX());
-        setY(giveMeVALPlusY());
+        // setY(giveMeVALPlusY());
 //        setX(getX() + getxVal());
-//        setY(br.getY() - getHeight());
+        setY(br.getY() - getHeight());
         setBounds(getX(), getY(), getWidth(), getHeight());
 //System.out.println("up" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
         br.DicreasValue();
@@ -339,7 +359,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
         setX(giveMeVALPlusX());
         setY(giveMeVALPlusY());
         setBounds(getX(), getY(), getWidth(), getHeight());
-    //    System.out.println("Ghoshe" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
+        //    System.out.println("Ghoshe" + getX() + ":" + getY() + "    brick" + br.getX() + ":" + br.getY());
         br.DicreasValue();
         repaint();
         setyVal(-1 * getyVal());

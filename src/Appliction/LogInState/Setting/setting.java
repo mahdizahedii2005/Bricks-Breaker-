@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 
 public class setting {
+    public static float volume = 40F;
     private JButton back;
     private JPanel settingPanel;
     private JButton yesButton;
@@ -37,8 +38,6 @@ public class setting {
 
     private static String CurrentActivePath = WActivePath;
     private static String CurrentInActivePath = RInActivePath;
-
-    private static int volume = 40;
 
     public setting(JPanel mainPanel) {
         CreatSettingPanel();
@@ -69,7 +68,7 @@ public class setting {
     }
 
     private void addSoundController() {
-        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, volume);
+        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)volume);
         soundController.setBounds(basePlace, (basePlace * 3) - 150, width, potoSize);
         soundController.setVisible(true);
         soundController.setOpaque(true);
@@ -79,7 +78,7 @@ public class setting {
         soundController.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                volume = soundController.getValue();
+                volume = (float) soundController.getValue();
             }
         });
         settingPanel.add(soundController);
@@ -89,6 +88,7 @@ public class setting {
         soundPhoto.setOpaque(true);
         settingPanel.add(soundPhoto);
     }
+
     private void addSettingName() {
         SettingName = new JLabel(new ImageIcon("Pic\\sETING.png"));
         SettingName.setBounds(125, 25, 350, 60);
@@ -96,6 +96,7 @@ public class setting {
         SettingName.setOpaque(true);
         settingPanel.add(SettingName);
     }
+
     private void addAiming() {
         AmingPhoto = new JLabel(new ImageIcon("Pic\\Aiming.png"));
         AmingPhoto.setBounds(200, 370, 200, 60);
@@ -103,7 +104,8 @@ public class setting {
         AmingPhoto.setOpaque(true);
         settingPanel.add(AmingPhoto);
     }
-//red IS that been picked
+
+    //red IS that been picked
     private void addActive() {
         active = new JButton(new ImageIcon(CurrentActivePath));
         active.setBounds(40, 385, 142, 32);
@@ -126,6 +128,7 @@ public class setting {
         });
         settingPanel.add(active);
     }
+
     private void addInActive() {
         inActive = new JButton(new ImageIcon(CurrentInActivePath));
         inActive.setBounds(410, 385, 165, 32);
@@ -133,7 +136,8 @@ public class setting {
         inActive.setOpaque(true);
         inActive.addActionListener(new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {if (CurrentInActivePath.equals(WInActivePath)) {
+            public void actionPerformed(ActionEvent e) {
+                if (CurrentInActivePath.equals(WInActivePath)) {
                     CurrentActivePath = WActivePath;
                     CurrentInActivePath = RInActivePath;
                     settingPanel.remove(active);
@@ -142,9 +146,12 @@ public class setting {
                     addInActive();
                     GameFrame.getGameFrame().revalidate();
                     GameFrame.getGameFrame().repaint();
-                }}});
+                }
+            }
+        });
         settingPanel.add(inActive);
     }
+
     private void addSaveRecord() {
         SaveRecords = new JLabel(new ImageIcon("Pic\\SaveRecourdPhoto.png"));
         SaveRecords.setBounds(100, 550, 400, 43);
@@ -152,6 +159,7 @@ public class setting {
         SaveRecords.setOpaque(true);
         settingPanel.add(SaveRecords);
     }
+
     private void addYes() {
         yesButton = new JButton(new ImageIcon(CurrentYPath));
         yesButton.setBounds(25, 550, 43, 43);
@@ -174,6 +182,7 @@ public class setting {
         });
         settingPanel.add(yesButton);
     }
+
     private void addNo() {
         NoButton = new JButton(new ImageIcon(CurrentNPath));
         NoButton.setBounds(525, 550, 43, 43);
@@ -196,6 +205,7 @@ public class setting {
         });
         settingPanel.add(NoButton);
     }
+
     private void addBack() {
         back = new JButton(new ImageIcon("Pic\\back.png"));
         back.setBounds(204, 690, 192, 52);

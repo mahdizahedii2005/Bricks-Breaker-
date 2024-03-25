@@ -2,8 +2,6 @@ package Appliction.LogInState;
 
 import Appliction.Application;
 import Appliction.view.GameFrame;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 

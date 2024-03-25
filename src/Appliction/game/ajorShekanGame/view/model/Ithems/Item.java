@@ -22,12 +22,13 @@ public abstract class Item extends ObjectsInGame implements Gravity {
         setIcon(new ImageIcon(PhotoPath));
         setVisible(true);
         setOpaque(true);
+        GamePanel.getGamePanel().firstBrick.add(this);
         GamePanel.getGamePanel().gravityObject.add(this);
         GamePanel.getGamePanel().ItemArrayList.add(this);
         GamePanel.getGamePanel().add(this);
         GamePanel.getGamePanel().repaint();
     }
-    protected void DoAction(){}
+    public void DoAction(){}
 
     @Override
     public void Gravity(int mizan) {

@@ -8,9 +8,12 @@ import Appliction.game.ajorShekanGame.view.model.Gravity;
 import Appliction.view.GameFrame;
 
 public class gameLoop extends Thread {
+    public static boolean IS_IT_REV = false;
+    public static int HP = 1;
+    public static int NUMBER_OF_BALL_TO_IN_THIS_ROUND = 1;
     public int SpeedOfBrickP = 10;
     public static int CurrentValue = 1;
-    public static int BALLSPEED = 35;
+    public static int BALLSPEED = 30;
     private static int GenBrickSpeed = 600;
     private boolean IsBallTrow = false;
     private boolean IsGameRunning = true;
@@ -19,6 +22,19 @@ public class gameLoop extends Thread {
 
     public gameLoop() {
         CurrentValue = 1;
+        if (GamePanel.level.equals("hard")) {
+            GenBrickSpeed = 40;
+            BALLSPEED = 30;
+            SpeedOfBrickP = 1;
+        } else if (GamePanel.level.equals("normal")) {
+            GenBrickSpeed = 47;
+            BALLSPEED = 30;
+            SpeedOfBrickP = 1;
+        } else if (GamePanel.level.equals("ez")) {
+            GenBrickSpeed = 55;
+            BALLSPEED = 30;
+            SpeedOfBrickP = 1;
+        }
     }
 
     @Override
@@ -49,17 +65,32 @@ public class gameLoop extends Thread {
 
     private void MoveDownOneStep(int arz) {
         for (Gravity br : GamePanel.getGamePanel().gravityObject) {
-            br.Gravity(500 / arz);
+            int s =0;
+            if (GamePanel.level.equals("hard")) {
+                s = (500 / arz);
+            } else if (GamePanel.level.equals("normal")) {
+                s = (250 / arz) ;
+            } else if (GamePanel.level.equals("ez")) {
+                s = (250 / arz) ;
+            }
+            br.Gravity(s);
+        }
+    }
+
+    private void moveRev(int arz) {
+        for (Gravity br : GamePanel.getGamePanel().gravityObject) {
+            br.Gravity(-500 / arz);
         }
     }
 
     private void Creatsatr() {
         if (!IsGamePus && !isBallTrow) {
-            if (GamePanel.getGamePanel().firstBrick.isEmpty() || GamePanel.getGamePanel().firstBrick.get(0).getY() > 0) {
+            if (GamePanel.getGamePanel().firstBrick.isEmpty() || GamePanel.getGamePanel().firstBrick.get(0).getY() >= 0) {
                 new CreatBrick(GamePanel.NUMBEROFBRICKINEACHSATR, CurrentValue, GamePanel.getGamePanel()).BulAnSatr();
             }
-            for (Gravity GR : GamePanel.getGamePanel().gravityObject) {
-                GR.Gravity(SpeedOfBrickP);
+            for (int i = 0; i < GamePanel.getGamePanel().gravityObject.size(); i++) {
+                Gravity gr = GamePanel.getGamePanel().gravityObject.get(i);
+                gr.Gravity(SpeedOfBrickP);
             }
             GameFrame.getGameFrame().repaint();
             try {
@@ -69,15 +100,22 @@ public class gameLoop extends Thread {
             }
         }
     }
-
     private void LoseCheck() {
-        for (Brick br : GamePanel.getGamePanel().brickArrayList) {
+        for (int i=0 ; i <GamePanel.getGamePanel().brickArrayList.size();i++) {
+            Brick br =GamePanel.getGamePanel().brickArrayList.get(i);
             if (br.getY() + br.getHeight() > 500) {
-                IsGameRunning = false;
+                HP -= 1;
+                if (HP < 1) {
+                    IsGameRunning = false;
+                } else {
+                    GamePanel.getGamePanel().remove(br);
+                    GamePanel.getGamePanel().brickArrayList.remove(br);
+                    GamePanel.getGamePanel().gravityObject.remove(br);
+                    i--;
+                }
             }
         }
     }
-
     private void MoveBall() {
         if (!IsGamePus && isBallTrow) {
             for (int i = 0; i < GamePanel.getGamePanel().ballArrayList.size(); i++) {
@@ -93,9 +131,7 @@ public class gameLoop extends Thread {
                 } catch (InterruptedException e) {
                 }
             }
-            int j = 0;
             while (isBallTrow) {
-                j++;
                 for (int i = 0; i < GamePanel.getGamePanel().ballArrayList.size(); i++) {
                     GamePanel.getGamePanel().ballArrayList.get(i).Move();
                 }
@@ -106,8 +142,16 @@ public class gameLoop extends Thread {
                 IsBallTrow = IsBalllTrow();
             }
             new CreatBrick(GamePanel.NUMBEROFBRICKINEACHSATR, CurrentValue, GamePanel.getGamePanel()).CustomCreat();
-            MoveDownOneStep(GamePanel.NUMBEROFBRICKINEACHSATR);
-            new Ball(GamePanel.StartX, GamePanel.startY, 15, 15, GamePanel.getGamePanel().ballPAth);
+            if (!IS_IT_REV) {
+                MoveDownOneStep(GamePanel.NUMBEROFBRICKINEACHSATR);
+            } else {
+                moveRev(GamePanel.NUMBEROFBRICKINEACHSATR);
+                IS_IT_REV = false;
+            }
+            for (int i = 0; i < NUMBER_OF_BALL_TO_IN_THIS_ROUND; i++) {
+                new Ball(GamePanel.StartX, GamePanel.startY, 15, 15, GamePanel.getGamePanel().ballPAth);
+            }
+            NUMBER_OF_BALL_TO_IN_THIS_ROUND = 1;
         }
     }
 }

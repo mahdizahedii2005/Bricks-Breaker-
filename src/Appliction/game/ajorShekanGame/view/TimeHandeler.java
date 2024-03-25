@@ -10,6 +10,13 @@ public class TimeHandeler {
     private boolean isGameRunning = true;
     private ArrayList<Long> StopTime = new ArrayList<>();
     private ArrayList<Long> startTime = new ArrayList<>();
+    public long giveSecond(){
+        long nowTimeSec = ((System.currentTimeMillis() / 1000) - StartTimeSec);
+        if (!startTime.isEmpty() || !StopTime.isEmpty()) {
+            nowTimeSec = nowTimeSec - (sumTheArray(startTime) - sumTheArray(StopTime));
+        }
+        return nowTimeSec;
+    }
 
     public void PuseTheGame() {
         isGameRunning = false;

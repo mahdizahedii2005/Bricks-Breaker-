@@ -11,7 +11,7 @@ public class GameFrame extends JFrame {
     private static GameFrame gameFrame;
     public static int MAXWIDTH = 600;
 
-    private JPanel panel;
+    public JPanel panel;
     private JPanel mainPanel;
     private background background;
 

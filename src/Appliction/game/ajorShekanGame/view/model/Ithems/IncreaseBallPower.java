@@ -1,6 +1,7 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.IncreasePower;
 
 public class IncreaseBallPower extends normalItem {
     public IncreaseBallPower(int x, int y) {
@@ -19,8 +20,8 @@ public class IncreaseBallPower extends normalItem {
     }
 
     @Override
-    protected void DoAction() {
-
+    public void DoAction() {
+        new IncreasePower().start();
     }
 
 }

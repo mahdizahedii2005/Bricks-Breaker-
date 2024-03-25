@@ -1,5 +1,6 @@
 package Appliction.game.ajorShekanGame.view.model.Ithems;
 
+import Appliction.game.ajorShekanGame.view.Controler.gameLoop;
 import Appliction.game.ajorShekanGame.view.GamePanel;
 
 public class Rev extends normalItem {
@@ -21,7 +22,7 @@ public class Rev extends normalItem {
     }
 
     @Override
-    protected void DoAction() {
-
+    public void DoAction() {
+        gameLoop.IS_IT_REV = true;
     }
 }
