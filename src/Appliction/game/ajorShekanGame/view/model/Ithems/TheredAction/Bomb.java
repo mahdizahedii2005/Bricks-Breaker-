@@ -1,19 +1,21 @@
-package Appliction.game.ajorShekanGame.view.model.Ithems;
+package Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction;
 
 import Appliction.game.ajorShekanGame.gameMusicPlayer;
 import Appliction.game.ajorShekanGame.view.GamePanel;
 
 import javax.swing.*;
 
-public class boom extends Thread {
+public class Bomb extends Thread {
     int x, y;
-    String Path;
-    JLabel boom;
-
-    public boom(int x, int y) {
+    gameMusicPlayer a ;
+    public Bomb(int x, int y,gameMusicPlayer a) {
+        this.a=a;
         this.x = x;
         this.y = y;
-        boom = new JLabel();
+    }
+    @Override
+    public void run() {
+        JLabel boom = new JLabel();
         if (GamePanel.level.equals("hard")) {
             boom.setIcon(new ImageIcon("Pic\\Item\\Hard\\explo.png"));
             boom.setBounds(x - 75, y - 75, 150, 150);
@@ -26,20 +28,16 @@ public class boom extends Thread {
         }
         boom.setVisible(true);
         boom.setOpaque(true);
-    }
-
-    @Override
-    public void run() {
         new gameMusicPlayer("Pic\\song\\bom.wav").play();
         GamePanel.getGamePanel().add(boom);
         GamePanel.getGamePanel().repaint();
         try {
-            sleep(800);
+            Thread.sleep(800);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        a.close();
         GamePanel.getGamePanel().remove(boom);
         GamePanel.getGamePanel().repaint();
-
     }
 }

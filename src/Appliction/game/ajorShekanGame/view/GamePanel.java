@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    private ScoreHandeler scoreHandeler;
     public static boolean Hp = true;
     public static int NUMBEROFBRICKINEACHSATR = 5;
     public static int StartX = -1;
@@ -29,10 +30,24 @@ public class GamePanel extends JPanel {
     public static final int MaxWidth = 500;
     public static final int MaxHeight = 500;
     public static final int BallLength = 15;
-    public static gameMusicPlayer musicPlayer=new gameMusicPlayer("Pic\\song\\gta.wav");;
+    public gameMusicPlayer musicPlayer;
+    private String PersonName;
 
-    public GamePanel(String level, String BallPath) {
+    public String getPersonName() {
+        return PersonName;
+    }
+
+    public void setPersonName(String personName) {
+        PersonName = personName;
+    }
+
+    private String date;
+
+    public GamePanel(String level, String BallPath, ScoreHandeler scoreHandeler, String personName) {
         super();
+        this.PersonName = personName;
+        this.scoreHandeler = scoreHandeler;
+        musicPlayer = new gameMusicPlayer("Pic\\song\\gta.wav");
         musicPlayer.play();
         this.level = level;
         if (level.equals("hard")) {
@@ -69,8 +84,12 @@ public class GamePanel extends JPanel {
 
     public static GamePanel getGamePanel() {
         if (gamePanel == null) {
-            gamePanel = new GamePanel(gamePanel.level, gamePanel.ballPAth);
+            // gamePanel = new GamePanel(gamePanel.level, gamePanel.ballPAth);
         }
         return gamePanel;
+    }
+
+    public ScoreHandeler getScoreHandeler() {
+        return scoreHandeler;
     }
 }

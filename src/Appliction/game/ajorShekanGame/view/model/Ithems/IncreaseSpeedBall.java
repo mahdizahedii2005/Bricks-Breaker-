@@ -20,6 +20,7 @@ public class IncreaseSpeedBall extends normalItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
         new IncreaseSpeed().start();
     }
 }

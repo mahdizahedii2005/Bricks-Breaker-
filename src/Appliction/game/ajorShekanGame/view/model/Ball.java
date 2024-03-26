@@ -11,6 +11,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
     private float yVal = 0;
 
     public static String ballphoto;
+
     public Ball(int x, int y, int width, int height, String Path) {
         super(x, y, width, height);
         ballphoto = Path;
@@ -42,10 +43,6 @@ public class Ball extends ObjectsInGame implements IMoveable {
         for (Item item : GamePanel.getGamePanel().ItemArrayList) {
             if (HitItemChecker(item)) {
                 item.DoAction();
-                GamePanel.getGamePanel().remove(item);
-                GamePanel.getGamePanel().ItemArrayList.remove(item);
-                GamePanel.getGamePanel().gravityObject.remove(item);
-                GamePanel.getGamePanel().repaint();
                 return;
             }
         }
@@ -145,8 +142,39 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private boolean doWeHitBrick() {
+        Brick[] bricks = new Brick[500];
         for (Brick br : GamePanel.getGamePanel().brickArrayList) {
-            if (HitChooser(br)) {
+            int a = (int) Math.sqrt(((getCenterX() - br.getX()) * (getCenterX() - br.getX())) + ((getCenterY() - getY()) * (getCenterY() - getY())));
+            if (bricks[a] == null) {
+                bricks[a] = br;
+            } else {
+                int j = 1;
+                while (a < 500 && a > -1) {
+                    a += j;
+                    if (bricks[a] == null) {
+                        bricks[a] = br;
+                        break;
+                    }
+                    j++;
+                    a -= j;
+                    if (bricks[a] == null) {
+                        bricks[a] = br;
+                        break;
+                    }
+                    j++;
+                }
+            }
+        }
+        Brick[] newb = new Brick[10];
+        int j = 0;
+        for (int i = 0; i < 500 && j < 10; i++) {
+            if (bricks[i] != null) {
+                newb[j] = bricks[i];
+                j++;
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            if (newb[i]!=null&&HitChooser(newb[i])) {
                 return true;
             }
         }

@@ -21,6 +21,7 @@ public class IncreaseBallPower extends normalItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
         new IncreasePower().start();
     }
 

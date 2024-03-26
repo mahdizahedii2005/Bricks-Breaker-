@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CreatBrick {
+    private static int period = 1;
+    private int chanceFor1, chanceFor2, chanceFor3;
     public static ArrayList<String> ColorBrickHard = new ArrayList<>();
+    int rate;
 
     static {
         ColorBrickHard.add("Pic\\Brick\\Green.png");
@@ -53,6 +56,22 @@ public class CreatBrick {
         this.gamePanel = gamePanel;
         this.numSart = numSatr;
         this.valueOfBrick = valueOfBrick;
+        if (GamePanel.level.equals("ez")) {
+            chanceFor1 = 85;
+            chanceFor2 = 20;
+            chanceFor3 = 10;
+            rate = 14;
+        } else if (GamePanel.level.equals("normal")) {
+            chanceFor1 = 85;
+            chanceFor2 = 15;
+            chanceFor3 = 5;
+            rate = 12;
+        } else if (GamePanel.level.equals("hard")) {
+            chanceFor1 = 65;
+            chanceFor2 = 10;
+            chanceFor3 = 5;
+            rate = 10;
+        }
     }
 
     private String ChooseWhichStack() {
@@ -60,24 +79,27 @@ public class CreatBrick {
         StringBuilder result = new StringBuilder();
         int numOf1 = 0;
         for (int i = 0; i < numSart; i++) {
-            int IthemBAshe = random.nextInt(30);
-            if (IthemBAshe > 3) {
+            int ItemBAshe = random.nextInt(100);
+            if (ItemBAshe < chanceFor3) {
+                result.append("3");
+            } else if (ItemBAshe < chanceFor2) {
+                result.append("2");
+            } else if (ItemBAshe < chanceFor1) {
                 if (NumCreat >= numOf1) {
                     int maghsod = random.nextInt(2);
                     if (maghsod == 1) {
                         numOf1++;
                     }
-                    result.append(maghsod);
+                    result.append("1");
                 } else {
                     result.append("0");
                 }
-            } else if (IthemBAshe == 3) {
-                result.append("3");
             } else {
-                result.append("2");
+                result.append("0");
             }
         }
         return result.toString();
+
     }
 
     public void BulAnSatr() {
@@ -123,12 +145,21 @@ public class CreatBrick {
                     }
                 } else if (which.charAt(i) == '3') {
                     int chooser = random.nextInt(100);
+                    SpeItem Spe;
                     if (chooser < 50) {
-                        new Bomb((i * 500 / numSart), -500 / numSart);
+                        Spe = new Bomb((i * 500 / numSart), -500 / numSart, valueOfBrick);
+                        Brick brick = new Brick((i * 500 / numSart), -500 / numSart, 500 / numSart, 500 / numSart, valueOfBrick, Spe);
+                        gamePanel.add(brick);
+                        gamePanel.firstBrick.add(brick);
+                        gamePanel.brickArrayList.add(brick);
+                        gamePanel.gravityObject.add(brick);
                     } else if (chooser < 90) {
-                        new DanceBall((i * 500 / numSart), -500 / numSart);
-                    } else {
-                        new EarthQuark((i * 500 / numSart), -500 / numSart);
+                        Spe = new DanceBall((i * 500 / numSart), -500 / numSart, valueOfBrick);
+                        Brick brick = new Brick((i * 500 / numSart), -500 / numSart, 500 / numSart, 500 / numSart, valueOfBrick, Spe);
+                        gamePanel.add(brick);
+                        gamePanel.firstBrick.add(brick);
+                        gamePanel.brickArrayList.add(brick);
+                        gamePanel.gravityObject.add(brick);
                     }
                 }
             }
@@ -163,7 +194,7 @@ public class CreatBrick {
                 path = ColorBrickEz.get(random.nextInt(ColorBrickEz.size()));
             }
             if (Brick.Vallide((i * 500 / numSart), soton, 500 / numSart, 500 / numSart)) {
-                gointo =true;
+                gointo = true;
                 if (which.charAt(i) == '1') {
                     Brick brick = new Brick((i * 500 / numSart), soton, 500 / numSart, 500 / numSart, valueOfBrick, path);
                     gamePanel.add(brick);
@@ -189,17 +220,31 @@ public class CreatBrick {
                     int chooser = random.nextInt(100);
                     SpeItem Spe;
                     if (chooser < 50) {
-                        Spe = new Bomb((i * 500 / numSart), soton);
+                        Spe = new Bomb((i * 500 / numSart), soton, valueOfBrick);
+                        Brick brick = new Brick((i * 500 / numSart), soton, 500 / numSart, 500 / numSart, valueOfBrick, Spe);
+                        gamePanel.add(brick);
+                        gamePanel.firstBrick.add(brick);
+                        gamePanel.brickArrayList.add(brick);
+                        gamePanel.gravityObject.add(brick);
                     } else if (chooser < 80) {
-                        Spe = new DanceBall((i * 500 / numSart), soton);
-                    } else {
-                        Spe = new EarthQuark((i * 500 / numSart), soton);
+                        Spe = new DanceBall((i * 500 / numSart), soton, valueOfBrick);
+                        Brick brick = new Brick((i * 500 / numSart), soton, 500 / numSart, 500 / numSart, valueOfBrick, Spe);
+                        gamePanel.add(brick);
+                        gamePanel.firstBrick.add(brick);
+                        gamePanel.brickArrayList.add(brick);
+                        gamePanel.gravityObject.add(brick);
                     }
                 }
             }
         }
         if (gointo) {
-            GamePanel.getGamePanel().gameLoop.CurrentValue++;
+            CreatBrick.period++;
+            if (CreatBrick.period % rate == 0) {
+                GamePanel.getGamePanel().gameLoop.CurrentValue += 3;
+                GamePanel.getGamePanel().gameLoop.SpeedOfBrickP++;
+            } else {
+                GamePanel.getGamePanel().gameLoop.CurrentValue++;
+            }
         }
     }
 }

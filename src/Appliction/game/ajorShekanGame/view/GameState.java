@@ -11,13 +11,14 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Random;
 
 public class GameState extends JPanel {
     public static boolean IS_IT_SARGIJEH = false;
-    int ballBSpeed = 10;
+    private int ballBSpeed = 10;
     public static boolean isGameStop = false;
-    TimeHandeler timeHandeler;
+    private TimeHandeler timeHandeler;
     private showTimeFrame timeShow;
     private JLabel recordShow;
     private JLabel bestRecordShow;
@@ -32,9 +33,14 @@ public class GameState extends JPanel {
     private String path = "Pic\\images (1).jfif";
     private BufferedImage backgroundImage;
     private String PlayerName;
+    private ScoreHandeler scoreHandeler;
+    private ShowScore scoreShow;
+    private ShowBestScore bestScoreShow;
 
     public GameState(String level, String Path, String PlayerName) {
         super();
+        timeHandeler = new TimeHandeler();
+        scoreHandeler = new ScoreHandeler(timeHandeler);
         this.PlayerName = PlayerName;
         setBounds(0, 0, 600, 800);
         setOpaque(false);
@@ -45,9 +51,8 @@ public class GameState extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        timeHandeler = new TimeHandeler();
         add(new showTimeFrame(timeHandeler, this));
-        gamePanel = new GamePanel(level, Path);
+        gamePanel = new GamePanel(level, Path,scoreHandeler,PlayerName);
         add(gamePanel);
         gamePanel.addMouseListener(new MouseListener() {
             @Override
@@ -98,22 +103,19 @@ public class GameState extends JPanel {
 
             }
         });
-
         CreatPusee();
-
         CreatExit();
-
         CreatJLabel(record, 1, 0, 200, 26, "Pic\\game pic\\yourRecord.png");
-
         CreatJLabel(bestRecord, 1, 35, 200, 22, "Pic\\game pic\\Best record.png");
-
         CreatJLabel(Time, 88, 67, 111, 30, "Pic\\game pic\\Time.png");
-        GameFrame.getGameFrame().
+        scoreShow = new ShowScore(this);
+        bestScoreShow = new ShowBestScore(this);
+        GameFrame.getGameFrame().getMainPanel().add(this);
+    }
 
-                getMainPanel().
-
-                add(this);
-
+    public void UpdateTheScore() {
+        scoreShow.repaint();
+        bestScoreShow.repaint();
     }
 
     private void CreatJButton(JButton jbutton, int x, int y, int width, int height) {
@@ -137,8 +139,9 @@ public class GameState extends JPanel {
         Exit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GamePanel.musicPlayer.Stop();
-                // TODO: ۱۴/۰۳/۲۰۲۴ Finish the game
+                GamePanel.getGamePanel().musicPlayer.Stop();
+                GamePanel.getGamePanel().musicPlayer.close();
+                gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(),GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString());
                 GameFrame.getGameFrame().newStage();
                 new Appliction.LogInState.LoginPAnnel(GameFrame.getGameFrame().getMainPanel());
                 GameFrame.getGameFrame().addBackGrand();
@@ -155,8 +158,11 @@ public class GameState extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isGameStop) {
+                    GamePanel.getGamePanel().musicPlayer.play();
+
                     timeHandeler.ReasumTheGame();
                 } else {
+                    GamePanel.getGamePanel().musicPlayer.Stop();
                     timeHandeler.PuseTheGame();
                 }
                 isGameStop = !isGameStop;
@@ -165,6 +171,10 @@ public class GameState extends JPanel {
                 repaint();
             }
         });
+    }
+
+    public ScoreHandeler getScoreHandeler() {
+        return scoreHandeler;
     }
 
     @Override

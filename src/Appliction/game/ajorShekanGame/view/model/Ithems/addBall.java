@@ -20,6 +20,7 @@ public class addBall extends normalItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
         gameLoop.NUMBER_OF_BALL_TO_IN_THIS_ROUND++;
     }
 }

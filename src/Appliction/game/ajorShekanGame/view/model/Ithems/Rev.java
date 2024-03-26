@@ -23,6 +23,7 @@ public class Rev extends normalItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
         gameLoop.IS_IT_REV = true;
     }
 }

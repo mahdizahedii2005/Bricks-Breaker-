@@ -19,6 +19,7 @@ public class Sargijeh extends normalItem{
     }
     @Override
     public void DoAction() {
+        super.DoAction();
         GameState.IS_IT_SARGIJEH=true;
     }
 

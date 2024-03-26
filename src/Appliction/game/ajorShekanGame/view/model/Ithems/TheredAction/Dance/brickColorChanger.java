@@ -15,43 +15,46 @@ public class brickColorChanger extends Thread {
 
     @Override
     public void run() {
-        for (int i = 0; i <40; i++) {
-            if (i%3==0){
-                for (Brick br:invisibleBrick) {
+        for (int i = 0; i < 40; i++) {
+            if (i % 3 == 0) {
+                for (Brick br : invisibleBrick) {
                     br.setVisible(true);
                 }
                 invisibleBrick = new ArrayList<>();
             }
-            for (int j = 0; GamePanel.getGamePanel().brickArrayList.size()>j;j++) {
+            for (int j = 0; GamePanel.getGamePanel().brickArrayList.size() > j; j++) {
                 Brick br = GamePanel.getGamePanel().brickArrayList.get(j);
-                if (new Random().nextInt(16)==14){
-                    br.setVisible(false);
-                    invisibleBrick.add(br);
-                }else {
-                    String path = br.getPath();
-                    Random random = new Random();
-                    while (path.equals(br.getPath())) {
-                        if (GamePanel.level.equals("hard")) {
-                            path = ColorBrickHard.get(random.nextInt(ColorBrickHard.size()));
-                        } else if (GamePanel.level.equals("normal")) {
-                            path = ColorBrickNormal.get(random.nextInt(ColorBrickHard.size()));
-                        } else if (GamePanel.level.equals("ez")) {
-                            System.out.println(ColorBrickEz.size());
-                            path = ColorBrickEz.get(random.nextInt(ColorBrickEz.size()));
+                if (!br.isItSpe()) {
+                    if (new Random().nextInt(16) == 14) {
+                        br.setVisible(false);
+                        invisibleBrick.add(br);
+                    } else {
+                        String path = br.getPath();
+                        Random random = new Random();
+                        while (path.equals(br.getPath())) {
+                            if (GamePanel.level.equals("hard")) {
+                                path = ColorBrickHard.get(random.nextInt(ColorBrickHard.size()));
+                            } else if (GamePanel.level.equals("normal")) {
+                                path = ColorBrickNormal.get(random.nextInt(ColorBrickHard.size()));
+                            } else if (GamePanel.level.equals("ez")) {
+                                System.out.println(ColorBrickEz.size());
+                                path = ColorBrickEz.get(random.nextInt(ColorBrickEz.size()));
+                            }
                         }
+                        br.setIcon(new ImageIcon(path));
                     }
-                    br.setIcon(new ImageIcon(path));
                 }
             }
             GamePanel.getGamePanel().repaint();
-            while (GameState.isGameStop){}
+            while (GameState.isGameStop) {
+            }
             try {
                 sleep(250);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        for (Brick br:invisibleBrick) {
+        for (Brick br : invisibleBrick) {
             br.setVisible(true);
         }
         invisibleBrick = new ArrayList<>();

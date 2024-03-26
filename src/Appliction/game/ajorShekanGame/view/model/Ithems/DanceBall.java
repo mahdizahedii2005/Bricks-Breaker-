@@ -5,8 +5,8 @@ import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.Dance.brick
 import Appliction.game.ajorShekanGame.view.model.Ithems.TheredAction.Dance.changBackGround;
 
 public class DanceBall extends SpeItem {
-    public DanceBall(int x, int y) {
-        super(x, y);
+    public DanceBall(int x, int y,Integer a) {
+        super(x, y,a);
         if (GamePanel.level.equals("hard")) {
             PhotoPath = "Pic\\Item\\Hard\\Dance.png";
             BulItem(36,50);
@@ -24,6 +24,7 @@ public class DanceBall extends SpeItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
        new changBackGround().start();
        new brickColorChanger().start();
     }

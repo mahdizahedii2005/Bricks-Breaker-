@@ -1,11 +1,17 @@
 package Appliction.game.ajorShekanGame.view.Controler;
 
+//import Appliction.game.ajorShekanGame.gameMusicPlayer;
+
+import Appliction.game.ajorShekanGame.gameMusicPlayer;
 import Appliction.game.ajorShekanGame.view.GamePanel;
+import Appliction.game.ajorShekanGame.view.gameFileProcese;
 import Appliction.game.ajorShekanGame.view.model.Ball;
 import Appliction.game.ajorShekanGame.view.model.Brick;
 import Appliction.game.ajorShekanGame.view.model.CreatBrick;
 import Appliction.game.ajorShekanGame.view.model.Gravity;
 import Appliction.view.GameFrame;
+
+import java.time.LocalDate;
 
 public class gameLoop extends Thread {
     public static boolean IS_IT_REV = false;
@@ -16,24 +22,24 @@ public class gameLoop extends Thread {
     public static int BALLSPEED = 30;
     private static int GenBrickSpeed = 600;
     private boolean IsBallTrow = false;
-    private boolean IsGameRunning = true;
+    public boolean IsGameRunning = true;
     public boolean IsGamePus = false;
     public boolean isBallTrow = false;
 
     public gameLoop() {
         CurrentValue = 1;
         if (GamePanel.level.equals("hard")) {
-            GenBrickSpeed = 40;
+            GenBrickSpeed = 180;
             BALLSPEED = 30;
-            SpeedOfBrickP = 1;
+            SpeedOfBrickP = 4;
         } else if (GamePanel.level.equals("normal")) {
-            GenBrickSpeed = 47;
+            GenBrickSpeed = 200;
             BALLSPEED = 30;
-            SpeedOfBrickP = 1;
+            SpeedOfBrickP = 4;
         } else if (GamePanel.level.equals("ez")) {
-            GenBrickSpeed = 55;
+            GenBrickSpeed = 220;
             BALLSPEED = 30;
-            SpeedOfBrickP = 1;
+            SpeedOfBrickP = 4;
         }
     }
 
@@ -64,14 +70,15 @@ public class gameLoop extends Thread {
     }
 
     private void MoveDownOneStep(int arz) {
-        for (Gravity br : GamePanel.getGamePanel().gravityObject) {
-            int s =0;
+        for (int i = 0; i < GamePanel.getGamePanel().gravityObject.size(); i++) {
+            Gravity br = GamePanel.getGamePanel().gravityObject.get(i);
+            int s = 0;
             if (GamePanel.level.equals("hard")) {
                 s = (500 / arz);
             } else if (GamePanel.level.equals("normal")) {
-                s = (250 / arz) ;
+                s = (250 / arz);
             } else if (GamePanel.level.equals("ez")) {
-                s = (250 / arz) ;
+                s = (250 / arz);
             }
             br.Gravity(s);
         }
@@ -100,13 +107,17 @@ public class gameLoop extends Thread {
             }
         }
     }
+
     private void LoseCheck() {
-        for (int i=0 ; i <GamePanel.getGamePanel().brickArrayList.size();i++) {
-            Brick br =GamePanel.getGamePanel().brickArrayList.get(i);
+        for (int i = 0; i < GamePanel.getGamePanel().brickArrayList.size(); i++) {
+            Brick br = GamePanel.getGamePanel().brickArrayList.get(i);
             if (br.getY() + br.getHeight() > 500) {
                 HP -= 1;
                 if (HP < 1) {
+                    GamePanel.getGamePanel().musicPlayer.Stop();
+                    new gameMusicPlayer("Pic\\song\\lost.wav").play();
                     IsGameRunning = false;
+                    gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(),GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString());
                 } else {
                     GamePanel.getGamePanel().remove(br);
                     GamePanel.getGamePanel().brickArrayList.remove(br);
@@ -116,6 +127,7 @@ public class gameLoop extends Thread {
             }
         }
     }
+
     private void MoveBall() {
         if (!IsGamePus && isBallTrow) {
             for (int i = 0; i < GamePanel.getGamePanel().ballArrayList.size(); i++) {

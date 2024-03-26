@@ -21,6 +21,7 @@ public class Hp extends normalItem {
 
     @Override
     public void DoAction() {
+        super.DoAction();
         gameLoop.HP++;
     }
 }

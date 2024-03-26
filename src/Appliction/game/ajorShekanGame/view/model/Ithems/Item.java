@@ -28,8 +28,15 @@ public abstract class Item extends ObjectsInGame implements Gravity {
         GamePanel.getGamePanel().add(this);
         GamePanel.getGamePanel().repaint();
     }
-    public void DoAction(){}
-
+    public void DoAction(){
+     Delete();
+    }
+    public void Delete(){
+        GamePanel.getGamePanel().remove(this);
+        GamePanel.getGamePanel().ItemArrayList.remove(this);
+        GamePanel.getGamePanel().gravityObject.remove(this);
+        GamePanel.getGamePanel().repaint();
+    }
     @Override
     public void Gravity(int mizan) {
         setY(getY() + mizan);

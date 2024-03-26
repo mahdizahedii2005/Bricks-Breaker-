@@ -9,6 +9,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 public class gameMusicPlayer {
     private AdvancedPlayer player;
@@ -27,30 +28,27 @@ public class gameMusicPlayer {
             clip.open(audioInputStream);
             gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             FixVolume();
-//            while (!clip.isRunning()) {
-//                Thread.sleep(10);
-//            }
-//            while (clip.isRunning()) {
-//                Thread.sleep(10);
-//            }
-
-            // بستن Clip و AudioInputStream
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     public void play() {
         clip.start();
     }
-
     public void Stop() {
-        clip.close();
+        clip.stop();
+    }
+    public void close(){
+        try {
+            audioInputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Method to set volume
-    private  void FixVolume() {
-        gainControl.setValue((float) ((6.0206*setting.volume)/100));
+    private void FixVolume() {
+        gainControl.setValue((float) ((6.0206 * setting.volume) / 100));
     }
 
     public String getMusicPath() {

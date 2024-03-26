@@ -46,12 +46,10 @@ public class readyState {
     public static final String brownBall = "Pic\\ball\\botonrojooscuro-th.png";
     public static final String BlueBall = "Pic\\ball\\blue.png";
 
-
     public readyState(JPanel mainPanel) {
         CreatReadyStatePanel();
         CreatReadyState();
         mainPanel.add(readyState);
-
     }
 
     public void CreatReadyStatePanel() {
@@ -116,8 +114,8 @@ public class readyState {
             public void actionPerformed(ActionEvent e) {
                 if (!personName.isEmpty()) {
                     GameFrame.getGameFrame().newStage();
-//                    new Appliction.game.ajorShekanGame.view.gameFrame(level, ballPath, personName);
-                    GameFrame.getGameFrame().add(new GameState(level,ballPath,personName));
+//new Appliction.game.ajorShekanGame.view.gameFrame(level, ballPath, personName);
+                    GameFrame.getGameFrame().add(new GameState(level, ballPath, personName));
                     GameFrame.getGameFrame().addBackGrand();
                     GameFrame.getGameFrame().repaint();
                 }
@@ -268,7 +266,7 @@ public class readyState {
         Sceleton2.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ballPath ="Pic\\ball\\images (1)\\images (1).png";
+                ballPath = "Pic\\ball\\images (1)\\images (1).png";
             }
         });
         readyState.add(Sceleton2);
