@@ -77,8 +77,10 @@ public class LoginPAnnel {
         History.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("History");
-            }
+                GameFrame.getGameFrame().newStage();
+                new Appliction.LogInState.History.History();
+                GameFrame.getGameFrame().addBackGrand();
+                GameFrame.getGameFrame().repaint();            }
         });
         loginPanel.add(History);
     }

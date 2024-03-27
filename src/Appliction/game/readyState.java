@@ -100,7 +100,7 @@ public class readyState {
             @Override
             public void actionPerformed(ActionEvent e) {
                 personName = nameFiled.getText();
-                System.out.println(personName);
+             //   System.out.println(personName);
             }
         });
         readyState.add(nameFiled);

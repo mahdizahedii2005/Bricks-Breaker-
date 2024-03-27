@@ -142,7 +142,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
     }
 
     private boolean doWeHitBrick() {
-        Brick[] bricks = new Brick[500];
+        Brick[] bricks = new Brick[1000];
         for (Brick br : GamePanel.getGamePanel().brickArrayList) {
             int a = (int) Math.sqrt(((getCenterX() - br.getX()) * (getCenterX() - br.getX())) + ((getCenterY() - getY()) * (getCenterY() - getY())));
             if (bricks[a] == null) {
@@ -167,7 +167,7 @@ public class Ball extends ObjectsInGame implements IMoveable {
         }
         Brick[] newb = new Brick[10];
         int j = 0;
-        for (int i = 0; i < 500 && j < 10; i++) {
+        for (int i = 0; i < 200 && j < 10; i++) {
             if (bricks[i] != null) {
                 newb[j] = bricks[i];
                 j++;

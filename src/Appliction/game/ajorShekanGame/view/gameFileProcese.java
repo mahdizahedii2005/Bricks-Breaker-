@@ -33,7 +33,7 @@ public class gameFileProcese {
                 print.println(bestScore);
             }
             print.println(a);
-            print.println(name + "`" + Score + "`" + date+"`");
+            print.print("#"+name + "`" + Score + "`" + date+"!");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

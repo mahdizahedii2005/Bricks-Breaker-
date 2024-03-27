@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 
 public class setting {
+    public static boolean Aim = false;
     public static float volume = 40F;
     private JButton back;
     private JPanel settingPanel;
@@ -68,7 +69,7 @@ public class setting {
     }
 
     private void addSoundController() {
-        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)volume);
+        soundController = new JSlider(JSlider.HORIZONTAL, 0, 100, (int) volume);
         soundController.setBounds(basePlace, (basePlace * 3) - 150, width, potoSize);
         soundController.setVisible(true);
         soundController.setOpaque(true);
@@ -115,6 +116,7 @@ public class setting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentActivePath.equals(WActivePath)) {
+                    Aim = true;
                     CurrentActivePath = RActivePath;
                     CurrentInActivePath = WInActivePath;
                     settingPanel.remove(active);
@@ -138,6 +140,7 @@ public class setting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentInActivePath.equals(WInActivePath)) {
+                    Aim=false;
                     CurrentActivePath = WActivePath;
                     CurrentInActivePath = RInActivePath;
                     settingPanel.remove(active);

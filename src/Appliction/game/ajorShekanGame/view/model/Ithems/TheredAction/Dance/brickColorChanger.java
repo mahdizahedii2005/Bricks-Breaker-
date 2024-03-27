@@ -37,7 +37,7 @@ public class brickColorChanger extends Thread {
                             } else if (GamePanel.level.equals("normal")) {
                                 path = ColorBrickNormal.get(random.nextInt(ColorBrickHard.size()));
                             } else if (GamePanel.level.equals("ez")) {
-                                System.out.println(ColorBrickEz.size());
+                            //    System.out.println(ColorBrickEz.size());
                                 path = ColorBrickEz.get(random.nextInt(ColorBrickEz.size()));
                             }
                         }

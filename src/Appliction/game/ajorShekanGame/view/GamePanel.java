@@ -9,9 +9,14 @@ import Appliction.game.ajorShekanGame.view.model.Ithems.Item;
 import Appliction.game.ajorShekanGame.view.model.ObjectsInGame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    public int finishx, finishy;
+    public boolean draw = false;
+    public boolean isItClick = false;
+
     private ScoreHandeler scoreHandeler;
     public static boolean Hp = true;
     public static int NUMBEROFBRICKINEACHSATR = 5;
@@ -87,6 +92,15 @@ public class GamePanel extends JPanel {
             // gamePanel = new GamePanel(gamePanel.level, gamePanel.ballPAth);
         }
         return gamePanel;
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (draw && !gameLoop.isBallTrow) {
+            g.drawLine(ballArrayList.get(0).getCenterX(), 490, finishx, finishy);
+        }
     }
 
     public ScoreHandeler getScoreHandeler() {
