@@ -2,6 +2,7 @@ package Appliction.LogInState;
 
 import Appliction.Application;
 import Appliction.view.GameFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -78,34 +79,35 @@ public class LoginPAnnel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameFrame.getGameFrame().newStage();
-                new Appliction.LogInState.History.History();
+                GameFrame.getGameFrame().add(new Appliction.LogInState.History.History());
                 GameFrame.getGameFrame().addBackGrand();
-                GameFrame.getGameFrame().repaint();            }
+                GameFrame.getGameFrame().repaint();
+            }
         });
         loginPanel.add(History);
     }
 
-    private void addRecords() {
-        records = new JButton(new ImageIcon("Pic\\records.png"));
-        records.setBounds(startButton, startButton * 3, Width, Height);
-        records.setVisible(true);
-        records.setFocusable(true);
-        records.requestFocus();
-        records.requestFocusInWindow();
-
-
-        records.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("record");
-            }
-        });
-        loginPanel.add(records);
-    }
+//    private void addRecords() {
+//        records = new JButton(new ImageIcon("Pic\\records.png"));
+//        records.setBounds(startButton, startButton * 3, Width, Height);
+//        records.setVisible(true);
+//        records.setFocusable(true);
+//        records.requestFocus();
+//        records.requestFocusInWindow();
+//
+//
+//        records.addActionListener(new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("record");
+//            }
+//        });
+//        loginPanel.add(records);
+//    }
 
     private void addGame() {
         StartGame = new JButton(new ImageIcon("Pic\\game.png"));
-        StartGame.setBounds(startButton, startButton, Width, Height);
+        StartGame.setBounds(startButton, startButton+70, Width, Height);
         StartGame.setVisible(true);
         StartGame.addActionListener(new AbstractAction() {
             @Override
@@ -123,7 +125,7 @@ public class LoginPAnnel {
         addGame();
         addExit();
         addHistory();
-        addRecords();
+        //addRecords();
         addSetting();
     }
 }

@@ -20,43 +20,44 @@ public class gameMusicPlayer {
     private FloatControl gainControl;
 
     public gameMusicPlayer(String musicPath) {
-        this.musicPath = musicPath;
-        try {
-            // بارگذاری فایل صوتی
-            audioInputStream = AudioSystem.getAudioInputStream(new File(musicPath));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            FixVolume();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (setting.volume != 0) {
+            this.musicPath = musicPath;
+            try {
+                // بارگذاری فایل صوتی
+                audioInputStream = AudioSystem.getAudioInputStream(new File(musicPath));
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                FixVolume();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
     public void play() {
-        clip.start();
+        if (setting.volume!=0){
+        clip.start();}
     }
+
     public void Stop() {
-        clip.stop();
+        if (setting.volume!=0){
+        clip.stop();}
     }
-    public void close(){
+
+    public void close() {
+        if(setting.volume!=0){
         try {
             audioInputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }}
     }
 
     // Method to set volume
     private void FixVolume() {
-        gainControl.setValue((float) ((6.0206 * setting.volume) / 100));
-    }
+        gainControl.setValue(0F);
 
-    public String getMusicPath() {
-        return musicPath;
+        // gainControl.setValue((float) (((gainControl.getMaximum()-gainControl.getMinimum()) * setting.volume) / 100)-gainControl.getMaximum());
     }
-
-    public void setMusicPath(String musicPath) {
-        this.musicPath = musicPath;
-    }
-
 }

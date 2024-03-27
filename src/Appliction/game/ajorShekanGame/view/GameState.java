@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 
 public class GameState extends JPanel {
@@ -34,7 +35,7 @@ public class GameState extends JPanel {
     private JLabel bestRecord;
     public static int PersonRecord = 0;
     public static int BestRecord = 0;// TODO: ۱۴/۰۳/۲۰۲۴  fix best record
-    private String path = "Pic\\images (1).jfif";
+    public static String path = "Pic\\images (1).jfif";
     private BufferedImage backgroundImage;
     private String PlayerName;
     private ScoreHandeler scoreHandeler;
@@ -94,7 +95,7 @@ public class GameState extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (setting.Aim) {
-             //       System.out.println("start");
+                    //       System.out.println("start");
                     handle(e.getX(), e.getY());
                     gamePanel.isItClick = true;
                     if (!gamePanel.gameLoop.isBallTrow && !isGameStop && e.getY() < GamePanel.YFIRSTPLACOFBALL - 20) {
@@ -111,7 +112,7 @@ public class GameState extends JPanel {
                 if (setting.Aim) {
                     mamad = false;
                     if (!gamePanel.gameLoop.isBallTrow && !isGameStop && e.getY() < GamePanel.YFIRSTPLACOFBALL - 20) {
-                   //     System.out.println("finish");
+                        //     System.out.println("finish");
                         float xvel, yval = 6;
                         if (!IS_IT_SARGIJEH) {
                             float z = (float) (e.getX() + 5 - gamePanel.ballArrayList.get(0).getX()) / (e.getY() + 5 - gamePanel.ballArrayList.get(0).getY());
@@ -156,9 +157,9 @@ public class GameState extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (mamad) {
-                //    System.out.println("hi");
+                    //    System.out.println("hi");
                     if (setting.Aim) {
-                     //   System.out.println("start");
+                        //   System.out.println("start");
                         handle(e.getX(), e.getY());
                         gamePanel.isItClick = true;
                     }
@@ -228,7 +229,9 @@ public class GameState extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 GamePanel.getGamePanel().musicPlayer.Stop();
                 GamePanel.getGamePanel().musicPlayer.close();
-                gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(), GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString());
+                if (GamePanel.getGamePanel().gameLoop.IsGameRunning) {
+                    gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(), GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString(), LocalTime.now().toString());
+                }
                 GameFrame.getGameFrame().newStage();
                 new Appliction.LogInState.LoginPAnnel(GameFrame.getGameFrame().getMainPanel());
                 GameFrame.getGameFrame().addBackGrand();

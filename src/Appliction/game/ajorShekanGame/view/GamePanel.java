@@ -48,6 +48,10 @@ public class GamePanel extends JPanel {
 
     private String date;
 
+    public static String getBallPAth() {
+        return ballPAth;
+    }
+
     public GamePanel(String level, String BallPath, ScoreHandeler scoreHandeler, String personName) {
         super();
         this.PersonName = personName;

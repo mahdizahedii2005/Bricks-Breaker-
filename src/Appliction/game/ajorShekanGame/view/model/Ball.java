@@ -165,15 +165,15 @@ public class Ball extends ObjectsInGame implements IMoveable {
                 }
             }
         }
-        Brick[] newb = new Brick[10];
+        Brick[] newb = new Brick[9];
         int j = 0;
-        for (int i = 0; i < 200 && j < 10; i++) {
+        for (int i = 0; i < 180 && j < 9; i++) {
             if (bricks[i] != null) {
                 newb[j] = bricks[i];
                 j++;
             }
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             if (newb[i]!=null&&HitChooser(newb[i])) {
                 return true;
             }

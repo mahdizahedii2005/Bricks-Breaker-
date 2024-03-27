@@ -5,6 +5,7 @@ package Appliction.game.ajorShekanGame.view.Controler;
 import Appliction.game.ajorShekanGame.gameMusicPlayer;
 import Appliction.game.ajorShekanGame.view.GamePanel;
 import Appliction.game.ajorShekanGame.view.gameFileProcese;
+import Appliction.game.ajorShekanGame.view.loseFrame;
 import Appliction.game.ajorShekanGame.view.model.Ball;
 import Appliction.game.ajorShekanGame.view.model.Brick;
 import Appliction.game.ajorShekanGame.view.model.CreatBrick;
@@ -12,6 +13,7 @@ import Appliction.game.ajorShekanGame.view.model.Gravity;
 import Appliction.view.GameFrame;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class gameLoop extends Thread {
     public static boolean IS_IT_REV = false;
@@ -111,13 +113,16 @@ public class gameLoop extends Thread {
     private void LoseCheck() {
         for (int i = 0; i < GamePanel.getGamePanel().brickArrayList.size(); i++) {
             Brick br = GamePanel.getGamePanel().brickArrayList.get(i);
-            if (br.getY() + br.getHeight() > 500) {
+            if (br.getY() + br.getHeight() >= 500) {
                 HP -= 1;
                 if (HP < 1) {
-                    GamePanel.getGamePanel().musicPlayer.Stop();
-                    new gameMusicPlayer("Pic\\song\\lost.wav").play();
-                    IsGameRunning = false;
-                    gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(),GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString());
+                    if (IsGameRunning) {
+                        GamePanel.getGamePanel().musicPlayer.Stop();
+                        new gameMusicPlayer("Pic\\song\\lost.wav").play();
+                        IsGameRunning = false;
+                        gameFileProcese.WriteFile(GamePanel.getGamePanel().getPersonName(), GamePanel.getGamePanel().getScoreHandeler().getCurrentScore().toString(), LocalDate.now().toString(), LocalTime.now().toString());
+                        new loseFrame();
+                    }
                 } else {
                     GamePanel.getGamePanel().remove(br);
                     GamePanel.getGamePanel().brickArrayList.remove(br);

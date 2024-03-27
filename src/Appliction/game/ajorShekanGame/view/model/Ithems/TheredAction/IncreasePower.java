@@ -7,7 +7,7 @@ public class IncreasePower extends Thread {
     @Override
     public void run() {
         Brick.BALL_POWER = 2;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 150; i++) {
             while (!GameState.isGameStop) {
             }
             try {

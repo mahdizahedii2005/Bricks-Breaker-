@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 
 public class setting {
+    public static boolean dataSaving=false;
     public static boolean Aim = false;
     public static float volume = 40F;
     private JButton back;
@@ -79,6 +80,7 @@ public class setting {
         soundController.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                System.out.println(soundController.getValue());
                 volume = (float) soundController.getValue();
             }
         });
@@ -172,6 +174,7 @@ public class setting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentYPath.equals(WY)) {
+                    dataSaving=true;
                     CurrentYPath = RY;
                     CurrentNPath = WN;
                     settingPanel.remove(yesButton);
@@ -195,6 +198,7 @@ public class setting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CurrentNPath.equals(WN)) {
+                    dataSaving=false;
                     CurrentYPath = WY;
                     CurrentNPath = RN;
                     settingPanel.remove(yesButton);

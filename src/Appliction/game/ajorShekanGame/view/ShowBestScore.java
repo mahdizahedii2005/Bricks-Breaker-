@@ -13,7 +13,7 @@ public class ShowBestScore extends JLabel {
         setFont(new Font("Arial", Font.ITALIC, 17));
         gameState.add(this);
         // TODO: ۲۵/۰۳/۲۰۲۴
-        setText("0");
+        setText(gameFileProcese.BestScore().toString());
     }
     public void update() {
         if (Integer.parseInt(getText()) < gameState.getScoreHandeler().getCurrentScore()) {

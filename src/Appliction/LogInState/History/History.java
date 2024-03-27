@@ -4,23 +4,47 @@ import Appliction.game.ajorShekanGame.view.gameFileProcese;
 import Appliction.view.GameFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class History {
+public class History extends JPanel {
     JScrollPane jScrollPane;
     JTable jTable;
+    JButton back;
 
     public History() {
+        setOpaque(false);
+        setBounds(0,0,600,800);
         this.jTable = new JTable(getData(), getColm());
-        setjTable();
         jScrollPane = new JScrollPane(jTable);
-        jscrol();
-        GameFrame.getGameFrame().getMainPanel().add(jTable);
-        GameFrame.getGameFrame().getMainPanel().add(jScrollPane);
+        jScrollPane.setBounds(100, 100, 400, 600);
+        CreatBack();
+        add(jScrollPane);
     }
 
     private String[] getColm() {
-        return new String[]{"NAME", "SCORE", "DATE"};
+        return new String[]{"NAME", "SCORE", "DATE","TIME"};
+    }
+
+    private void CreatJbutton(JButton jButton, int x, int y, int width, int height) {
+        jButton.setBounds(x, y, width, height);
+        jButton.setVisible(true);
+        jButton.setOpaque(true);
+    }
+
+    private void CreatBack() {
+        back = new JButton(new ImageIcon("Pic\\backk.png"));
+        CreatJbutton(back, 0, 0, 40, 40);
+        back.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameFrame.getGameFrame().newStage();
+                new Appliction.LogInState.LoginPAnnel(GameFrame.getGameFrame().getMainPanel());
+                GameFrame.getGameFrame().addBackGrand();
+                GameFrame.getGameFrame().repaint();
+            }
+        });
+        add(back);
     }
 
     private String[][] getData() {
@@ -32,6 +56,12 @@ public class History {
         for (int i = 0; i < a.length(); i++) {
             char t = a.charAt(i);
             if (t == '!') {
+                String b = "";
+                for (char c : word) {
+                    b += c;
+                }
+                satrList.add(b);
+                word = new ArrayList<>();
                 resultArray.add(satrList);
                 satrList = new ArrayList<>();
             } else if (t == '`') {
@@ -45,24 +75,27 @@ public class History {
                 word.add(t);
             }
         }
-        result = new String[resultArray.size()][3];
-        int w = 0;
-        for (ArrayList<String> arr : resultArray) {
-            result[w] = (String[]) arr.toArray();
-            w++;
+        result = new String[resultArray.size()][4];
+        for (int i = 0; i < resultArray.size(); i++) {
+            for (int j = 0; j < 4; j++) {
+                result[i][j] = resultArray.get(i).get(j);
+            }
+        }
+        if (resultArray.size() < 40) {
+            String[][] res = new String[40][4];
+            for (int i = 0; i < resultArray.size(); i++) {
+                for (int j = 0; j < 4; j++) {
+                    res[i][j] = result[i][j];
+                }
+            }
+            for (int i = resultArray.size(); i < 40; i++) {
+                for (int j = 0; j < 4; j++) {
+                    res[i][j] = " ";
+                }
+            }
+            return res;
         }
         return result;
     }
-    public void setjTable(){
-        jTable.setLayout(null);
-        jTable.setVisible(true);
-        jTable.setOpaque(true);
-        jTable.setBounds(100, 100, 400, 600);
-    }
-    public void jscrol() {
-        jScrollPane.setLayout(null);
-        jScrollPane.setVisible(true);
-        jScrollPane.setOpaque(true);
-        jScrollPane.setBounds(100, 100, 400, 600);
-    }
+
 }
